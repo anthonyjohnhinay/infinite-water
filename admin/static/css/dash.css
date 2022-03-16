@@ -1,0 +1,11 @@
+ion-icon {
+  font-size: 64px;
+}
+.navbar-nav > li > .dropdown-menu
+{
+background-color: #343a40;
+}
+.navbar-nav > li > .dropdown-menu a
+{
+      color: #cfcfcf;  
+}

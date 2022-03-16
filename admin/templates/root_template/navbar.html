@@ -1,0 +1,43 @@
+<!-- This will be the main template for the other routes in uri-->
+{% extends "root_template/base.html"%}
+{%block navabar%} 
+<nav class="navbar navbar-expand-dark navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><ion-icon name="water" size="large"></ion-icon> Infinite Water Refilling Station</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto">
+        
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-chart-line"></i> Dashboard <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"><i class="fas fa-usd-circle"></i> Sales</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#"> <i class="fas fa-user-cog"></i> Manage Users</a>
+        </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               <img
+              src="https://mdbootstrap.com/img/Photos/Avatars/img%20(9).jpg"
+              class="rounded-circle"
+              height="30"
+              alt=""
+              loading="lazy"
+            /> Profile
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+              <a class="dropdown-item" href="#"><i class="far fa-user"></i> Settings</a>
+              <a class="dropdown-item" href="/logout"><i class="far fa-sign-out"></i> Logout</a>
+              
+            </div>
+          </li>
+      
+      </ul>
+    </div>
+  </nav>
+  <!-- This will be the extensible file for all in admin-->
+{%block body%} {%endblock%}
+{%endblock%}

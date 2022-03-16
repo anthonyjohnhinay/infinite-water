@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- html dependencies for styling and functions-->
+    {%block styles%}
+    {{bootstrap.load_css()}}
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    
+
+    {{bootstrap.load_js()}}
+    {%endblock%}
+    <!-- The titles can customized  on each created html file-->
+    <title>{%block title%}{%endblock%}</title>
+</head>
+<body>
+    <link rel="stylesheet" href="{{url_for('login.static', filename='css/login.css')}}">
+    <!-- This is used to extend the html file and reuse among the routes-->
+    <section class="vh-100 gradient-custom" ">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+                    <div id="card_main"class="card shadow-2-strong" style="border-radius: 1rem;">
+                      {%block body%} {%endblock%}
+                    </div>
+                </div>
+            </div>
+        </div>
+    
+    </section>
+    
+</body>
+</html>

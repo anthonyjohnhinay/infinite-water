@@ -1,0 +1,37 @@
+{%extends "login_base.html"%}
+
+{% import 'bootstrap4/form.html' as wtf%}
+
+{%block body%}
+<!--https://mdbootstrap.com/docs/standard/extended/login/-->
+
+<!--script type="text/javascript" src="{{ url_for('login.static', filename='js/password.js') }}"></script!--->
+
+
+<div class="card-body p-5 text-center">
+    <h3 class mb-5>Login</h3>
+    <!-- This is the flashed message-->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+    {% for category, message in messages %}
+    <div class="alert alert-{{ category }}"> {{ message|capitalize }} </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+        <form action="/" method="post">
+            {{wtf.render_field(form.email, placeholder="Email Address")}}
+            <!-- Password field-->
+            <div class="input-group mb-3">
+                <!--https://getbootstrap.com/docs/4.0/components/input-group/-->
+                <input type="password" id="password" placeholder="Password" class="form-control" name="password" aria-describedby="basic-addon2"required>
+                
+            </div>
+            <div class="form-check d-flex justify-content-start mb-4">
+                {{wtf.render_field(form.remember)}}
+            </div>
+        <p class="small mb-4 pb-lg-1"><a href="/recover">Forgot Password?</a></p>
+        <!-- Submit button-->
+        <button class="btn btn-primary btn-lg btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+        </form>
+</div>
+{%endblock%}

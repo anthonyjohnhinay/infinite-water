@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- html dependencies for styling and functions-->
+    {%block styles%}
+    {{bootstrap.load_css()}}
+    
+    <!-- Icons for the website-->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+  
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <!-- CDN and Plugins for jquery-->
+    
+    {{bootstrap.load_js()}}
+    {%endblock%}
+    <!-- The titles can customized  on each created html file-->
+    <title>{%block title%}{%endblock%}</title>
+</head>
+<body>
+    <link rel="stylesheet" href="{{url_for('admin.static', filename='css/dash.css')}}">
+    <!-- Navbar templates-->
+      {%block navabar%} {%endblock%}
+    </div>
+    
+    
+</body>
+</html>
