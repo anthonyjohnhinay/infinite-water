@@ -9,3 +9,13 @@ background-color: #343a40;
 {
       color: #cfcfcf;  
 }
+.dark{
+  background-color: #343a40;
+
+}
+.white-text{
+  color: #F5F7FA;
+}
+.vh-100{
+  background-color: #F5F7FA;
+}

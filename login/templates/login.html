@@ -23,15 +23,18 @@
             <!-- Password field-->
             <div class="input-group mb-3">
                 <!--https://getbootstrap.com/docs/4.0/components/input-group/-->
-                <input type="password" id="password" placeholder="Password" class="form-control" name="password" aria-describedby="basic-addon2"required>
-                
+                <input type="password" id="password" placeholder="Password" class="form-control" name="password" required>
+            
             </div>
             <div class="form-check d-flex justify-content-start mb-4">
                 {{wtf.render_field(form.remember)}}
             </div>
         <p class="small mb-4 pb-lg-1"><a href="/recover">Forgot Password?</a></p>
         <!-- Submit button-->
-        <button class="btn btn-primary btn-lg btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+        <div class="col-md-12 text-center">
+            <button class="btn btn-primary btn-lg btn-block" id="loginbutton" type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+        </div>
+        
         </form>
 </div>
 {%endblock%}

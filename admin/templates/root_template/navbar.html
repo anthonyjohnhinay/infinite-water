@@ -1,43 +1,59 @@
 <!-- This will be the main template for the other routes in uri-->
 {% extends "root_template/base.html"%}
 {%block navabar%} 
-<nav class="navbar navbar-expand-dark navbar-dark bg-dark">
-    <a class="navbar-brand" href="#"><ion-icon name="water" size="large"></ion-icon> Infinite Water Refilling Station</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav ml-auto">
-        
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fas fa-chart-line"></i> Dashboard <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"><i class="fas fa-usd-circle"></i> Sales</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#"> <i class="fas fa-user-cog"></i> Manage Users</a>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-               <img
-              src="https://mdbootstrap.com/img/Photos/Avatars/img%20(9).jpg"
-              class="rounded-circle"
-              height="30"
-              alt=""
-              loading="lazy"
-            /> Profile
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <a class="dropdown-item" href="#"><i class="far fa-user"></i> Settings</a>
-              <a class="dropdown-item" href="/logout"><i class="far fa-sign-out"></i> Logout</a>
-              
-            </div>
-          </li>
-      
-      </ul>
-    </div>
-  </nav>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <a class="navbar-brand" href="#"><ion-icon name="water" size="large"></ion-icon> Infinite Flow Water Refilling Station</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav ml-auto ">
+      <li class="nav-item text-center mx-2 mx-lg-1 dropdown">
+        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <div>
+            <i class="fas fa-user-circle"></i>
+          </div>
+          Profile
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="#">Log out</a>
+   
+        </div>
+      </li>
+      <li class="nav-item text-center mx-2 mx-lg-1">
+        <a class="nav-link active" href="{{url_for('admin.index')}}">
+          <div>
+            <i class="fas fa-chart-line"></i>
+          </div>
+          Dashboard
+        </a>
+      </li>
+      <li class="nav-item text-center mx-2 mx-lg-1"">
+        <a class="nav-link active" href="#">
+          <div>
+            <i class="fas fa-usd-square"></i>
+          </div>
+          Sales
+        </a>
+      </li>
+      <li class="nav-item text-center mx-2 mx-lg-1"">
+        <a class="nav-link active" href="{{url_for('admin.users')}}">
+          <div>
+            <i class="fas fa-cogs"></i>
+          </div>
+          Manage
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
   <!-- This will be the extensible file for all in admin-->
 {%block body%} {%endblock%}
+<!-- Experimental Footer-->
+<footer class="page-footer font-small dark">
+  <div class="footer-copyright text-center py-3 white-text"> 
+    Made in PH with ❤️
+  </div>
+
+</footer>
 {%endblock%}

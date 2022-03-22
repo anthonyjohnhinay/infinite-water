@@ -33,6 +33,8 @@ def config_app():
     app.register_blueprint(admin, url_prefix='/admin')
     from login.routes import login
     app.register_blueprint(login, url_prefix='/')
+    from errors.routes import error
+    app.register_blueprint(error)
 
 
     return app

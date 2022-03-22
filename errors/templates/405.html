@@ -1,0 +1,13 @@
+{%extends "error_base.html"%}
+{%block body%}
+{%block title%} Holdup! We dont do that here! {%endblock%}
+<link rel="stylesheet" href="{{url_for('error.static', filename='css/404.css')}}">
+<div class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="center-img">
+            <img src="{{url_for('error.static', filename='405.jpg')}}" alt="">
+        </div>
+        
+    </div>
+</div>
+{%endblock%}
