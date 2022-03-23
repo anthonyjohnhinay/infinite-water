@@ -30,7 +30,11 @@ def catalog():
 def add_product():
    selectprod = request.form['selectprod']
    productname = request.form['productname'].title()
-   qty = int(request.form['qty'])
+   qty = request.form['qty']
+   if qty == "":
+       qty = None
+   else:
+       qty = int(qty)
    print(selectprod, productname, qty)
    return jsonify({'success': f'{productname} product has been added to catalog'})
    

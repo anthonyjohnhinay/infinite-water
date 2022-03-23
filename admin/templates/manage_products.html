@@ -48,7 +48,7 @@
         <h2>Manage Products </h2>
         <div class="row">
           <div class="col-lg-6 col-md-6 col-sm-12">
-            <button class="btn btn-success btn-md"data-toggle="modal" data-target="#exampleModal2" id="selectmodal"> Add New Product Catalog</button>
+            <button class="btn btn-success btn-md"data-toggle="modal" data-target="#exampleModal2" id="selectmodal"> Add New Product</button>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-12">
               {{wtf.render_field(form1.categories, _class='wrapper', onfocus='this.size=5;' ,onblur='this.size=1;' ,onchange='this.size=1; this.blur();')}}
@@ -117,9 +117,10 @@
       </div>
       <div class="modal-body">
         <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
-        <label for="categories">Product Category</label>
-        {{wtf.render_field(form3.categories, _id=selectprod)}}
+     
+        {{wtf.render_field(form3.categories)}}
         {{wtf.render_field(form3.name, id="productname", placeholder="Product Name")}}
+        {{wtf.render_field(form3.price, id="price", placeholder="price")}}
         {{wtf.render_field(form3.quantity, id="qty", placeholder="Quantity")}}
       </div>
       <div class="modal-footer">

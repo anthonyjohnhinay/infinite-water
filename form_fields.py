@@ -31,6 +31,8 @@ class select_catalog(FlaskForm):
 class catalog_forms(FlaskForm):
     catalog = StringField('New Catalog', validators=[InputRequired()])
 class add_products(FlaskForm):
-    categories = QuerySelectField('Product Name', query_factory=product_catalog, allow_blank=False)
+    categories = QuerySelectField('Product Category', query_factory=product_catalog, allow_blank=False)
     name = StringField('Product Name', validators=[InputRequired()])
+    price = IntegerField('Product Price', validators=[InputRequired()])
     quantity = IntegerField('Product Quantity (if none leave blank)')
+    

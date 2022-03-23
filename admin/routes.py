@@ -41,3 +41,8 @@ def manage_product():
     product_catalog = db.session.query(Catalog).order_by(Catalog.id.desc()).all()
     return render_template('manage_products.html', form1=form1, form2=form2, form3=form3,
     catalog=product_catalog)
+
+@admin.route('/customers')
+def manage_customers():
+    return render_template('customers.html')
+    pass

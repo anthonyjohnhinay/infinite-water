@@ -41,19 +41,21 @@ $(document).ready(function(){
             }
         })
     });
-  
+    
     // function for the the adding products
     $('#modal_submit2').click(function(){
         var selectprod = $('#categories').val();
         var productname = $('#productname').val();
+        var price = $('#price').val();
         var qty = $('#qty').val();
-        if(productname != ''){
+        if(productname != '' && price !=""){
             $.ajax({
                 url: "/admin/api/products/add",
                 method: 'POST',
                 data:{
                     selectprod : selectprod,
                     productname : productname,
+                    price : price,
                     qty : qty
 
                 },
