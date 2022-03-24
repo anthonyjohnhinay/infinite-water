@@ -30,21 +30,21 @@ $(document).ready(function(){
       
     });
     // new function for the select
-    $('#categories').on('change' , function(event){ // it detects what the on select option then send post request to the backend
-        var product = $('#categories').val();
+    $('#catalogname').on('change' , function(event){ // it detects what the on select option then send post request to the backend
+        var product = $('#catalogname option:selected').text();
         $.ajax({
-            url:"/admin/api/products/add",
+            url:"/admin/api/products/filter",
             method:"POST",
             data: {product: product},
             success:function(data){
-                console.log(product)
+                $('#product_table').html(data)
             }
         })
     });
     
     // function for the the adding products
     $('#modal_submit2').click(function(){
-        var selectprod = $('#categories').val();
+        var category = $('#categories option:selected').text(); // this is to get the value name in the text
         var productname = $('#productname').val();
         var price = $('#price').val();
         var qty = $('#qty').val();
@@ -53,7 +53,7 @@ $(document).ready(function(){
                 url: "/admin/api/products/add",
                 method: 'POST',
                 data:{
-                    selectprod : selectprod,
+                    selectprod : category,
                     productname : productname,
                     price : price,
                     qty : qty
@@ -78,6 +78,8 @@ $(document).ready(function(){
         
       
     });
+    // function for filtering the products based on the catalog
+    
     
     
 });

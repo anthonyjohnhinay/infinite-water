@@ -1,4 +1,4 @@
-label[for="categories"]
+label[for="catalogname"]
 {
     display: none;
 }
@@ -13,4 +13,8 @@ label[for="categories"]
 }
 .catalog{
     margin-bottom: 3px;
+}
+
+table, td, tr{
+    border-collapse: collapse;
 }

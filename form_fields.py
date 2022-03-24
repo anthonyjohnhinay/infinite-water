@@ -27,7 +27,7 @@ class add_user(FlaskForm):
 
 # for manage_products
 class select_catalog(FlaskForm):
-    categories = QuerySelectField(query_factory=product_catalog, allow_blank=False)
+    catalogname = QuerySelectField(query_factory=product_catalog, allow_blank=False)
 class catalog_forms(FlaskForm):
     catalog = StringField('New Catalog', validators=[InputRequired()])
 class add_products(FlaskForm):

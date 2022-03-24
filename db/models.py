@@ -1,4 +1,4 @@
-from enum import unique
+
 from db.database import db
 from flask_login import UserMixin, AnonymousUserMixin
 from datetime import datetime
@@ -23,6 +23,8 @@ class Catalog(db.Model):
 class Product(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(20), unique=True)
+    price = db.Column(db.Integer)
+    quantity = db.Column(db.Integer)
     catalog_id = db.Column(db.Integer, db.ForeignKey('catalog.id'))
 
 # this is used to avoid any errors when browsing not login

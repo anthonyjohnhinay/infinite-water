@@ -14,6 +14,6 @@ def gen_password():
         pw.append(random.choice(char))
     product = ("".join(pw))
     return product
+# this uses in the form_field.py for the dynamic SelectField
 def product_catalog():
-    #temporary while creation
     return Catalog.query
