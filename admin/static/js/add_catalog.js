@@ -37,10 +37,11 @@ $(document).ready(function(){
             method:"POST",
             data: {product: product},
             success:function(data){
-                $('#product_table').html(data)
+                $('#product_dom').html($('#product_dom', data).html());
             }
         })
     });
+    
     
     // function for the the adding products
     $('#modal_submit2').click(function(){

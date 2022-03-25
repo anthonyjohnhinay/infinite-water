@@ -29,12 +29,21 @@ def catalog():
     return jsonify({'success':f'{data} has been added in product catalogs!'})
 @api_product.post('/filter')
 def filter_select():
+    #form
+    form1 = select_catalog()
+    form2 = catalog_forms()
+    form3 = add_products()
+
     data = request.form['product']
     print(data)
     #getting the product data from the ajax request
+    product_catalog = db.session.query(Catalog).order_by(Catalog.id.desc()).all()
     catalog = Catalog.query.filter_by(name=data).first()
-    print(catalog.products.name)
-    return '200'
+    catalog_child = catalog.products
+    print(catalog_child)
+
+    return render_template('manage_products.html', products=catalog_child,
+    form1=form1, form2=form2, form3=form3, catalog=product_catalog )
 
 #what is does is adding a product then if the quantity is None e.g a refill
 @api_product.post('/add')

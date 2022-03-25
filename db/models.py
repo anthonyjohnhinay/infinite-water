@@ -1,4 +1,5 @@
 
+from sqlalchemy.orm import backref
 from db.database import db
 from flask_login import UserMixin, AnonymousUserMixin
 from datetime import datetime
@@ -17,7 +18,7 @@ class Admin(db.Model, UserMixin):
 class Catalog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True)
-    products = db.relationship('Product', backref='catalog')
+    products = db.relationship('Product', backref=backref('catalog', uselist=False))
     def __repr__(self):
         return f'{self.name}'
 class Product(db.Model):

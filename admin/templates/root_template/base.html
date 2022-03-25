@@ -20,7 +20,7 @@
     <!-- The titles can customized  on each created html file-->
     <title>{%block title%}{%endblock%}</title>
 </head>
-<body>
+<body id="page_whole">
     <link rel="stylesheet" href="{{url_for('admin.static', filename='css/dash.css')}}">
     <!-- Navbar templates-->
       {%block navabar%} {%endblock%}

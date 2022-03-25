@@ -65,12 +65,12 @@
                     <th scope="col"></th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody id="product_dom">
                   <tr>
-                    {%for catalog in catalog%}
-                      <td scope="row">{{catalog.name}}</td>
-                      <td></td>
-                      <td></td>
+                    {%for product in products%}
+                      <td scope="row">{{product.name}}</td>
+                      <td>{{product.price}}</td>
+                      <td>{{product.quantity}}</td>
                       <td>
                         <a href="#" class="btn btn-warning">Edit product</a>
                         <a href="{{url_for('admin.api.api_product.catalog_delete_post', id=catalog.id)}}" class="btn btn-danger">Delete</a>
@@ -87,7 +87,7 @@
       </div>
 
     </div>
-</div>
+
 
 <!--- Modals-->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
