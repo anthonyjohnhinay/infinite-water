@@ -1,6 +1,5 @@
 $(document).ready(function(){
 
-
     $('#modal_submit').click(function(){
         var username = $('#catalog').val();
         if(username != ''){
@@ -41,7 +40,9 @@ $(document).ready(function(){
             }
         })
     });
+    // delete function
     
+
     
     // function for the the adding products
     $('#modal_submit2').click(function(){
@@ -62,7 +63,7 @@ $(document).ready(function(){
                 },
                 success:function(data) {
                     if(data.error){
-                        $('#errorAlert').text(data.error).show();
+                        $('#errorAlert2').text(data.error).show();
 				        $('#successAlert').hide();
                     }
                     else{

@@ -18,3 +18,9 @@ label[for="catalogname"]
 table, td, tr{
     border-collapse: collapse;
 }
+.table-responsive{
+    max-height: 300px;
+}
+#catalog_table{
+    max-height: 300px;
+}

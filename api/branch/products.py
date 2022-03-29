@@ -12,10 +12,15 @@ api_product = Blueprint('api_product', __name__)
 #for products and categories
 @api_product.route('/products/<id>')
 def catalog_delete_post(id):
+    catalog = Product.query.filter_by(catalog_id=id).all()
+    #krazy idea run instead in for loop =) 
+    for product in catalog:
+        Product.query.filter_by(catalog_id=id).delete()
     category = Catalog.query.filter_by(id=id).delete()
     db.session.commit()
     flash('Succesfully deleted the catalog name', 'success')
     return redirect(url_for('admin.manage_product'))
+
 @api_product.post('/catalogs')
 def catalog():
     data = request.form['catalogs']
@@ -44,7 +49,12 @@ def filter_select():
 
     return render_template('manage_products.html', products=catalog_child,
     form1=form1, form2=form2, form3=form3, catalog=product_catalog )
-
+@api_product.route('/delete/<id>')
+def delete_content(id):
+    data = Product.query.filter_by(id=id).delete()
+    db.session.commit()
+    flash('succesfully deleted the product', 'success')
+    return redirect(url_for('admin.manage_product'))
 #what is does is adding a product then if the quantity is None e.g a refill
 @api_product.post('/add')
 def add_product():
@@ -58,12 +68,13 @@ def add_product():
        qty = int(qty)
    print(selectprod, productname, price, qty)
    catalog = Catalog.query.filter_by(name=selectprod).first()
+   print(catalog)
    product = Product(name=productname, price=price, quantity=qty, catalog=catalog)
    db.session.add(product)
    try:
        db.session.commit()
-   except Exception as e:
-       print(e)
-
+   except:
+       return jsonify({'error': f'{productname} is already exist'})
+      
    return jsonify({'success': f'{productname} product has been added to catalog'})
    

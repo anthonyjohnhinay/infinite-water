@@ -20,7 +20,7 @@ def config_app():
       
     db.init_app(app)
     login_manager = LoginManager()
-    login_manager.login_view = 'admin.index'
+    login_manager.login_view = 'login.index'
     login_manager.anonymous_user = Anonymous
     login_manager.init_app(app)
     bootstrap = Bootstrap4(app)

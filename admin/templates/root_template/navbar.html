@@ -1,59 +1,62 @@
 <!-- This will be the main template for the other routes in uri-->
 {% extends "root_template/base.html"%}
-{%block navabar%} 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#"><ion-icon name="water" size="large"></ion-icon> Infinite Flow Water Refilling Station</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav ml-auto ">
-      <li class="nav-item text-center mx-2 mx-lg-1 dropdown">
-        <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <div>
-            <i class="fas fa-user-circle"></i>
+{%block navabar%}
+<link rel="stylesheet" href="{{url_for('admin.static', filename='css/utils.css')}}">
+<div class="vh-100">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"><ion-icon name="water" size="large"></ion-icon> Infinite Flow Water Refilling Station</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ml-auto ">
+        <li class="nav-item text-center mx-2 mx-lg-1 dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <div>
+              <i class="fas fa-user-circle"></i>
+            </div>
+            Profile
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" href="{{url_for('admin.logout')}}">Log out</a>
+     
           </div>
-          Profile
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Log out</a>
-   
-        </div>
-      </li>
-      <li class="nav-item text-center mx-2 mx-lg-1">
-        <a class="nav-link active" href="{{url_for('admin.index')}}">
-          <div>
-            <i class="fas fa-chart-line"></i>
-          </div>
-          Dashboard
-        </a>
-      </li>
-      <li class="nav-item text-center mx-2 mx-lg-1"">
-        <a class="nav-link active" href="#">
-          <div>
-            <i class="fas fa-usd-square"></i>
-          </div>
-          Sales
-        </a>
-      </li>
-      <li class="nav-item text-center mx-2 mx-lg-1"">
-        <a class="nav-link active" href="{{url_for('admin.users')}}">
-          <div>
-            <i class="fas fa-cogs"></i>
-          </div>
-          Manage
-        </a>
-      </li>
-    </ul>
-  </div>
-</nav>
-  <!-- This will be the extensible file for all in admin-->
-{%block body%} {%endblock%}
-<!-- Footer-->
-<footer class="page-footer font-small dark">
-  <div class="footer-copyright text-center py-3 white-text"> 
-    Made in PH with ❤️
-  </div>
-
-</footer>
+        </li>
+        <li class="nav-item text-center mx-2 mx-lg-1">
+          <a class="nav-link active" href="{{url_for('admin.index')}}">
+            <div>
+              <i class="fas fa-chart-line"></i>
+            </div>
+            Dashboard
+          </a>
+        </li>
+        <li class="nav-item text-center mx-2 mx-lg-1"">
+          <a class="nav-link active" href="#">
+            <div>
+              <i class="fas fa-usd-square"></i>
+            </div>
+            Sales
+          </a>
+        </li>
+        <li class="nav-item text-center mx-2 mx-lg-1"">
+          <a class="nav-link active" href="{{url_for('admin.users')}}">
+            <div>
+              <i class="fas fa-cogs"></i>
+            </div>
+            Manage
+          </a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+    <!-- This will be the extensible file for all in admin-->
+  {%block body%} {%endblock%}
+  <!-- Footer-->
+  <footer class="page-footer font-small dark" id="footer">
+    <div class="footer-copyright text-center py-3 white-text"> 
+      Made in PH with ❤️ <br>
+      Infinity Flow Water Refilling Station
+    </div>
+  </footer>
+</div> 
 {%endblock%}

@@ -18,6 +18,7 @@ class Admin(db.Model, UserMixin):
 class Catalog(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), unique=True)
+    # using cascade it will delete the parent together with its child.
     products = db.relationship('Product', backref=backref('catalog', uselist=False))
     def __repr__(self):
         return f'{self.name}'
