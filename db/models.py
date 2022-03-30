@@ -12,8 +12,9 @@ class Admin(db.Model, UserMixin):
     user = db.Column(db.String(50), unique=True)
     #since it is hashed it has many characters
     password = db.Column(db.String(255))
-    
-  
+
+# for customers
+ 
 #for products and catalog one to many
 class Catalog(db.Model):
     id = db.Column(db.Integer, primary_key=True)

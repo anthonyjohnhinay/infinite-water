@@ -1,0 +1,52 @@
+{%extends "root_template/navbar.html"%}
+{% import 'bootstrap4/form.html' as wtf%}
+{%block title%} Edit Products{%endblock%}
+{%block body%}
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center  align-items-center">
+        <div class="col-12">
+            <div class="card">
+                <!-- Title name-->
+                <div class="card-body p-5 text-center">
+                    <h3> <i class="fas fa-shopping-basket"></i> Editting {{name.name}}</h3>
+                    <!-- Main Content-->
+                    <input  id="product_code"type="text" value={{name.id}} style="display: none;">
+                    {{wtf.render_field(form.categories)}}
+                    {{wtf.render_field(form.name, placeholder='Product Name', value=name.name)}}
+                    {{wtf.render_field(form.price, placeholder='price' ,value=name.price)}}
+                    {{wtf.render_field(form.quantity, placeholder='Quantity', value=name.quantity)}}
+                    <button type="button" id="submit_button" class="btn btn-primary btn-md btn-block"> Submit </button>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $('#submit_button').click(function() {
+        var id = $('#product_code').val();
+        var category = $('#categories option:selected').text(); // this is to get the value name in the text
+        var productname = $('#name').val();
+        var price = $('#price').val();
+        var qty = $('#quantity').val();
+        if (category != "" && price != ""){
+            $.ajax({
+              url : '/admin/api/products/product/edit/'+id,
+              method : 'POST',
+              data : {
+                  category:category,
+                  productname:productname,
+                  price:price,
+                  qty:qty
+              },
+              success:function(data){
+                  console.log(category)
+              }
+
+            })
+        }
+        })
+    })
+</script>
+{%endblock%}

@@ -77,4 +77,23 @@ def add_product():
        return jsonify({'error': f'{productname} is already exist'})
       
    return jsonify({'success': f'{productname} product has been added to catalog'})
-   
+   # product edits
+@api_product.route('product/edit/<id>', methods=['GET', 'POST'])
+def edit_prod(id):
+    # post request
+    category = request.form['category']
+    productname = request.form['productname']
+    price = request.form['price']
+    qty = request.form['qty']
+    catalog = Catalog.query.filter_by(name=category).first()
+    print(catalog.id)
+    update = Product.query.filter_by(id=id).update(dict(
+        name = productname, price = price,
+        quantity = qty, catalog_id = catalog.id
+    ))
+    db.session.commit()
+    return '200'
+
+@api_product.route('catalog/edit/<id>')
+def edit_catalog(id):
+    pass

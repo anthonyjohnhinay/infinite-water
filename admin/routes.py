@@ -34,12 +34,17 @@ def add_users():
     form = add_user()
     return render_template('add_users.html', form=form)
 
-#edit users
+#edit users , products
 @admin.route('users/edit/<id>')
 def edit_users(id):
     name = Admin.query.filter_by(id=id).first()
     form = add_user()
     return render_template('admin_edit.html', form=form, name=name)
+@admin.route('products/edit/<id>')
+def edit_product(id):
+    name = Product.query.filter_by(id=id).first()
+    form = add_products()
+    return render_template('edit/product_edit.html', form=form, name=name)
 
 @admin.route('/products', methods=['POST', 'GET'])
 def manage_product():
