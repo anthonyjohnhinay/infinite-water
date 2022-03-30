@@ -22,31 +22,5 @@
         </div>
     </div>
 </div>
-<script>
-    $(document).ready(function () {
-        $('#submit_button').click(function() {
-        var id = $('#product_code').val();
-        var category = $('#categories option:selected').text(); // this is to get the value name in the text
-        var productname = $('#name').val();
-        var price = $('#price').val();
-        var qty = $('#quantity').val();
-        if (category != "" && price != ""){
-            $.ajax({
-              url : '/admin/api/products/product/edit/'+id,
-              method : 'POST',
-              data : {
-                  category:category,
-                  productname:productname,
-                  price:price,
-                  qty:qty
-              },
-              success:function(data){
-                  window.location.href = '/admin/products'
-              }
-
-            })
-        }
-        })
-    })
-</script>
+<script src="{{url_for('admin.static', filename='js/edit_content.js')}}"></script>
 {%endblock%}
