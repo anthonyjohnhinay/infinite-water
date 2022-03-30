@@ -33,4 +33,34 @@ $(document).ready(function () {
     
     }
     })
+    // catalog edit
+    $('#submit_button_catalog').click(function(){
+        var id = $('#catalog_code').val();
+        var catalog_name = $('#catalog').val();
+        if(catalog_name != ''){
+            swal({
+                title: "Are you sure?",
+                text: "Do you want to proceed to edit? " + catalog_name,
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Yes",
+                closeOnConfirm: false
+            }).then(function(){
+                $.ajax({
+                    url: '/admin/api/products/catalog/edit/'+id,
+                    method: 'POST',
+                    data:{catalog : catalog_name },
+                    success:(function(data) {
+                        window.location.href = '/admin/products'
+                    })
+                })
+            })
+        }
+        else{
+            $('#errorAlert2').text('Please input text!').show();
+        }
+        
+    })
+    //end function
 })

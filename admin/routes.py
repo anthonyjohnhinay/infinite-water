@@ -45,6 +45,12 @@ def edit_product(id):
     name = Product.query.filter_by(id=id).first()
     form = add_products()
     return render_template('edit/product_edit.html', form=form, name=name)
+@admin.route('catalogs/edit/<id>')
+def edit_catalog(id):
+    name = Catalog.query.filter_by(id=id).first()
+    form = catalog_forms()
+    return render_template('edit/catalog_edit.html', form=form, name=name)
+
 
 @admin.route('/products', methods=['POST', 'GET'])
 def manage_product():

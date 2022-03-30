@@ -35,7 +35,7 @@
                     <tr>
                       {%for catalog in catalog%}
                         <td scope="row">{{catalog.name}}</td>
-                        <td><a href="{{url_for('admin.edit_product', id=catalog.id)}}" target="_blank" class="btn btn-warning">Edit Catalog Name</a></td>
+                        <td><a href="{{url_for('admin.edit_catalog', id=catalog.id)}}" target="_blank" class="btn btn-warning">Edit Catalog Name</a></td>
                         <td><a href="{{url_for('admin.api.api_product.catalog_delete_post', id=catalog.id)}}" class="btn btn-danger">Delete</a></td>
                     </tr>
                     {%endfor%}

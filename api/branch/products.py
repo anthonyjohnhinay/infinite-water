@@ -94,6 +94,9 @@ def edit_prod(id):
     db.session.commit()
     return '200'
 
-@api_product.route('catalog/edit/<id>')
+@api_product.post('catalog/edit/<id>')
 def edit_catalog(id):
-    pass
+    category = request.form['catalog']
+    catalog = Catalog.query.filter_by(id=id).update(dict(name=category))
+    db.session.commit()
+    return '200'
