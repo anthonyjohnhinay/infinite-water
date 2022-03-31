@@ -24,7 +24,7 @@ $(document).ready(function(){
               else{
                 swal({
                   title: "Oops!",
-                  text: "This Email cannot be reset!, \n this is reserved for emergency",
+                  text: data.error,
                   icon: "error",
                   button: "Okay",
                 });
