@@ -14,3 +14,6 @@ api.register_blueprint(api_product, url_prefix='/products')
 
 from .branch.users import api_users
 api.register_blueprint(api_users, url_prefix="/users")
+
+from .branch.customers import api_customer
+api.register_blueprint(api_customer, url_prefix='/customers')

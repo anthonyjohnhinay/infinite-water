@@ -1,0 +1,29 @@
+{%extends "root_template/navbar.html"%}
+{% import 'bootstrap4/form.html' as wtf%}
+{%block title%} Edit Products{%endblock%}
+{%block body%}
+<div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center  align-items-center">
+        <div class="col-12">
+            <div class="card">
+                <!-- Title name-->
+                <div class="card-body p-5 text-center">
+                    <h3> <i class="fas fa-user-edit"></i>Editing {{name.name}}</h3>
+                    <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+                    <!-- Main Content-->
+                    <input  id="customer_code"type="text" value={{name.id}} style="display: none;">
+                    
+                    {{wtf.render_field(form.name, placeholder='Customer Name', value=name.name)}}
+                    {{wtf.render_field(form.address, placeholder='Address' ,value=name.address)}}
+                    {{wtf.render_field(form.contact_number, placeholder='Contact Number', value=name.contact_num)}}
+                    {{wtf.render_field(form.markers, placeholder='Contact Number', value=name.markers)}}
+                    <button type="button" id="submit_button_customer" class="btn btn-primary btn-md btn-block"> Submit </button>
+                
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="{{url_for('admin.static', filename='js/edit_content.js')}}"></script>
+{%endblock%}

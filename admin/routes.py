@@ -34,7 +34,7 @@ def add_users():
     form = add_user()
     return render_template('add_users.html', form=form)
 
-#edit users , products
+#editing section endpoints
 @admin.route('users/edit/<id>')
 def edit_users(id):
     name = Admin.query.filter_by(id=id).first()
@@ -50,8 +50,14 @@ def edit_catalog(id):
     name = Catalog.query.filter_by(id=id).first()
     form = catalog_forms()
     return render_template('edit/catalog_edit.html', form=form, name=name)
+@admin.route('customers/edit/<id>')
+def edit_customers(id):
+    name = Customer.query.filter_by(id=id).first()
+    form = customer()
+    return render_template('edit/customer_edit.html', form=form, name=name)
 
 
+# main endpoints for the dashboard
 @admin.route('/products', methods=['POST', 'GET'])
 def manage_product():
   
@@ -69,5 +75,7 @@ def manage_product():
 
 @admin.route('/customers')
 def manage_customers():
-    return render_template('customer_management.html')
+    name = db.session.query(Customer).order_by(Customer.id.desc()).all()
+    form = customer()
+    return render_template('customer_management.html', form=form, name=name)
     

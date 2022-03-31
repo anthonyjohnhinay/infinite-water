@@ -1,4 +1,5 @@
 
+from enum import unique
 from sqlalchemy.orm import backref
 from db.database import db
 from flask_login import UserMixin, AnonymousUserMixin
@@ -14,7 +15,13 @@ class Admin(db.Model, UserMixin):
     password = db.Column(db.String(255))
 
 # for customers
- 
+class Customer(db.Model):
+    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    name = db.Column(db.String(100), unique=True)
+    contact_number = db.Column(db.String(100))
+    address = db.Column(db.String(255))
+    markers = db.Column(db.String(255))
+
 #for products and catalog one to many
 class Catalog(db.Model):
     id = db.Column(db.Integer, primary_key=True)

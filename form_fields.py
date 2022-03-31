@@ -36,3 +36,9 @@ class add_products(FlaskForm):
     price = IntegerField('Product Price', validators=[InputRequired()])
     quantity = IntegerField('Product Quantity (if none leave blank)')
     
+# for managing the customers
+class customer(FlaskForm):
+    name = StringField('Customer Name', validators=[InputRequired()])
+    contact_number = IntegerField('Contact Number', validators=[InputRequired()])
+    address = StringField('Address', validators=[InputRequired()])
+    markers = StringField('Markers o Palatandaan', validators=[InputRequired()])
