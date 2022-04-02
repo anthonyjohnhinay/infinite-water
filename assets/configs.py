@@ -32,5 +32,5 @@ class prodconfig(Config):
     Use this class when hosting online or production mode
     """
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'postgres server'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://zbcolxmj:uHEl_ZeICEWl5EDlCql5YSBat8wQ3cEt@satao.db.elephantsql.com/zbcolxmj'
     SERVER_NAME = '100.115.92.197:5000'

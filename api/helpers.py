@@ -3,7 +3,7 @@
 
 import random
 import string
-
+from datetime import datetime
 from flask import render_template
 from db.database import db
 from db.models import *
@@ -56,4 +56,14 @@ def user_reset(user):
         user = user.user, email=user.email
     )
     mail.send(msg)
+
+def create_user(email, username, pw):
+    msg = Message('Account Creation',
+    sender='Infinity-flow',
+    recipients=[email],
+    )
+    msg.html = render_template('email/user_create.html', user = username, email=email, pw=pw)
+    mail.send(msg)
     
+def create_transaction_id(id):
+    pass

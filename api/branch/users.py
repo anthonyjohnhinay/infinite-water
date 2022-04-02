@@ -2,7 +2,7 @@
 from flask import Blueprint, jsonify, redirect, request, url_for, flash
 from werkzeug.security import generate_password_hash
 from assets.form_fields import *
-from api.helpers import gen_password, email_reset
+from api.helpers import *
 from db.models import Admin
 from db.database import db
 
@@ -33,8 +33,8 @@ def admin_reset():
 @api_users.post('/users/add')
 def add_users_post():
     form = add_user()
-    hashed_pw = gen_password()
-    hashed_pw = generate_password_hash(hashed_pw, 'sha256')
+    raw_pw = gen_password()
+    hashed_pw = generate_password_hash(raw_pw, 'sha256')
     if form.validate_on_submit:
         users= Admin(email=form.email.data, user=form.username.data.title(), password=hashed_pw)
         db.session.add(users)
@@ -44,6 +44,7 @@ def add_users_post():
             print(e)
             flash('This user / admin is already exist!', 'danger')
             return redirect(url_for('admin.add_users'))
+        create_user(form.email.data, form.username.data, raw_pw)
         flash('Succesfully add user', 'success')
         return redirect(url_for('admin.users'))
 
@@ -67,5 +68,5 @@ def delete_users(id):
         return redirect (url_for('admin.users'))
     user = Admin.query.filter_by(id=id).delete()
     db.session.commit()
-    flash('Succefully delted the user', 'success')
+    flash('Succefully deleted the user', 'success')
     return redirect (url_for('admin.users'))

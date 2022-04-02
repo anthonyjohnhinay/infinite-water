@@ -50,8 +50,78 @@ $(document).ready(function(){
     //end func
     $('#qty').keyup(function(){
         var qty = $('#qty').val();
-        var price = $('#product_val option:selected').val();
-        var total = (qty * price)
+        var price = $('#productname option:selected').val();
+        window.total = (qty * price)
         $('#total_price').text('₱' + total);
     })
+    $('#formprice').keyup(function(){
+        window.payment = $('#formprice').val();
+        window.balance = (payment - window.total);
+        $('#balance').text('₱' + balance);
+
+    })
+    $('#submitdata').click(function(){
+        // list of datas 
+        // getting the value for the customer since it has two classes, already know and not.
+        if($('#optioncustomer').val()==""){ var customername = $('#regcustom option:selected').text();}
+        else{var customername = $('#optioncustomer').val(); }
+
+        var customeraddress =$('#address').val();
+        var customercontact = $('#contact_number').val();
+        var customermarkers = $('#markers').val();
+        var productcatalog = $('#categories option:selected').text();
+        var productname = $('#productname option:selected').text();
+        var productprice = $('#productname option:selected').val();
+        var producttotal = window.total;
+        var userbal = window.balance
+        var qty = $('#qty').val()
+        //end
+       if(window.total == null){
+           $('#erroralert').text('Please input all the details!').show()
+       }
+       else{
+        swal({
+            title: "Are you sure?",
+            text: "Once submitted this cannot be undone",
+            icon: "warning",
+            buttons: true,
+            allowOutsideClick: false,
+            dangerMode: true,
+          })
+          .then((willsave)=>{
+              if(willsave){
+                  $.ajax({
+                      url : '/admin/api/transaction/fetch_transaction',
+                      method : 'POST',
+                      data : {
+                         customername : customername,
+                         customercontact : customercontact,
+                         customeraddress :  customeraddress,
+                         customermarkers : customermarkers,
+                         productcatalog : productcatalog,
+                         productname : productname,
+                         productprice : productprice,
+                         producttotal : producttotal,
+                         userbal : userbal,
+                         qty : qty
+                      },
+                      success:function(data){
+                        swal({
+                            title: "Yay!",
+                            text: 'Transaction has been added',
+                            icon: "success",
+                            button: "Okay",
+                          }).then(function(){
+                              $('#exampleModal').modal('hide');
+                              location.reload();
+                          })
+                      }
+
+                      //end
+                  })
+              }
+          })
+       }
+    })
+    //
 })

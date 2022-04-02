@@ -58,7 +58,20 @@ class Product(db.Model):
     price = db.Column(db.Integer)
     quantity = db.Column(db.Integer)
     catalog_id = db.Column(db.Integer, db.ForeignKey('catalog.id'))
-
+class transaction_data(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    transactionid = db.Column(db.Integer, unique=True)
+    customername = db.Column(db.String(100))
+    customercontact = db.Column(db.Integer)
+    customeraddress = db.Column(db.String(255))
+    customermarkers = db.Column(db.String(255))
+    productcatalog = db.Column(db.String(100))
+    productname = db.Column(db.String(100))
+    total = db.Column(db.Integer)
+    qty = db.Column(db.Integer)
+    productprice = db.Column(db.Integer)
+    productbal = db.Column(db.Integer)
+    
 # this is used to avoid any errors when browsing not login
 class Anonymous(AnonymousUserMixin):
   def __init__(self):

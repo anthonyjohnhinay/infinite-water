@@ -15,10 +15,11 @@
             <div>
               <i class="fas fa-user-circle"></i>
             </div>
-            Profile
+            {{current}}
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="{{url_for('admin.logout')}}">Log out</a>
+            
      
           </div>
         </li>
@@ -31,7 +32,7 @@
           </a>
         </li>
         <li class="nav-item text-center mx-2 mx-lg-1"">
-          <a class="nav-link active" href="#">
+          <a class="nav-link active" href="{{url_for('admin.manage_transaction')}}">
             <div>
               <i class="fas fa-usd-square"></i>
             </div>

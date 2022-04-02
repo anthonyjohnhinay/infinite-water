@@ -11,8 +11,12 @@ static_folder='static', template_folder='templates', static_url_path='/static/ad
 #registering the api blueprint
 from api.routes import api
 admin.register_blueprint(api, url_prefix='/api')
+@admin.app_context_processor
+def get_current():
+    return dict(current = current_user.user.title())
 
 @admin.route('/')
+@login_required
 def index():
     return render_template('dashboard.html')
 @admin.route('/logout')
@@ -24,33 +28,39 @@ def logout():
 
     
 @admin.route('/users')
+@login_required
 def users():
     users_all =  db.session.query(Admin).order_by(Admin.id.desc()).limit(10).all()
     print(users_all)
     return render_template('manage_user.html', users=users_all)
 #add users 
 @admin.route('/users/add')
+@login_required
 def add_users():
     form = add_user()
     return render_template('add_users.html', form=form)
 
 #editing section endpoints
 @admin.route('users/edit/<id>')
+@login_required
 def edit_users(id):
     name = Admin.query.filter_by(id=id).first()
     form = add_user()
     return render_template('admin_edit.html', form=form, name=name)
 @admin.route('products/edit/<id>')
+@login_required
 def edit_product(id):
     name = Product.query.filter_by(id=id).first()
     form = add_products()
     return render_template('edit/product_edit.html', form=form, name=name)
 @admin.route('catalogs/edit/<id>')
+@login_required
 def edit_catalog(id):
     name = Catalog.query.filter_by(id=id).first()
     form = catalog_forms()
     return render_template('edit/catalog_edit.html', form=form, name=name)
 @admin.route('customers/edit/<id>')
+@login_required
 def edit_customers(id):
     name = Customer.query.filter_by(id=id).first()
     form = customer()
@@ -59,6 +69,7 @@ def edit_customers(id):
 
 # main endpoints for the dashboard
 @admin.route('/products', methods=['POST', 'GET'])
+@login_required
 def manage_product():
   
     form1 = select_catalog()
@@ -69,19 +80,27 @@ def manage_product():
     # for the products, it will get the first data by the first catalog name by itself.
     catalog = Catalog.query.first()
     print(catalog)
-    catalog_child = catalog.products
+    try:
+        catalog_child = catalog.products
+    except:
+        catalog_child = []
     return render_template('manage_products.html', form1=form1, form2=form2, form3=form3,
     catalog=product_catalog, products=catalog_child)
 
 @admin.route('/customers')
+@login_required
 def manage_customers():
     name = db.session.query(Customer).order_by(Customer.id.desc()).all()
     form = customer()
     return render_template('customer_management.html', form=form, name=name)
 @admin.route('/transaction')
+@login_required
 def manage_transaction():
     form1 = transaction()
     form2 = product_transaction()
+
+    data_transaction = transaction_data.query.all()
+
     return render_template(
         'transaction_manage.html', 
-        form1=form1, form2=form2)
+        form1=form1, form2=form2, transaction=data_transaction)

@@ -25,16 +25,17 @@
                       <th scope="col"></th>
                     </tr>
                   </thead>
+                  {%for data in transaction%}
                   <tbody>
                     <tr>
                       
-                        <td scope="row"></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
+                        <td scope="row">{{data.id}}</td>
+                        <td>{{data.customername}}</td>
+                        <td>{{data.customeraddress}}</td>
+                        <td>{{data.customercontact}}</td>
+                        <td>{{data.productname}}</td>
+                        <td>{{data.qty}}</td>
+                        <td>{{data.customermarkers}}</td>
                         <td>
                             <a href="#" target="_blank" class="btn btn-warning">Edit</a>
                             <a href="#" class="btn btn-danger">Delete</a>
@@ -42,6 +43,7 @@
                     </tr>
                     
                   </tbody>
+                  {%endfor%}
                 </table>
               </div>
               <!-- End of the table-->
@@ -102,16 +104,25 @@
            
           </div>
           <hr>
-          <h4>Grand Total:</h4>
+          
           <div class="form-row">
-            <div class="col-md-3">
+            <div class="col-md-4">
+              <h4>Total Price: </h4>
               <h2 id="total_price"></h2>
+            </div>
+            <div id="pricepayment"class="form-group col-md-4">
+              <h4>Payment:</h4>
+              <input id="formprice" type="text" class="form-control">
+            </div>
+            <div id="pricebal"class="form-group col-md-4">
+              <h4>Change:</h4>
+              <h6 class="" id="balance"></h6>
             </div>
           </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary" id="modal_submit">Save</button>
+          <button type="button" class="btn btn-primary" id="submitdata">Save</button>
         </div>
       </div>
     </div>
@@ -119,10 +130,22 @@
 
 
 <style>
+ 
     #addbtn{
         margin-top: 10px;
         margin-bottom: 5px;
-    }  
+    }
+    #formprice{
+      font-size: 40px;
+    }
+    #total_price{
+      font-size: 60px;
+      font-weight: 300;
+    }
+    #balance{
+      font-size: 60px;
+      font-weight: 300;
+    }
 </style>
 <script src="{{url_for('admin.static', filename='js/transaction.js')}}"></script>
 {%endblock%}
