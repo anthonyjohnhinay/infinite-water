@@ -7,6 +7,7 @@ from db.database import db
 from werkzeug.security import check_password_hash, generate_password_hash
 from assets.configs import config_email
 from api.helpers import user_reset
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 login = Blueprint('login', __name__,
 static_folder='static', template_folder='templates', static_url_path='/static/login')
@@ -62,20 +63,33 @@ def recover_post():
             return redirect(url_for('login.recover'))
         return render_template('forgot_pw.html', form=form)
 
-@login.route('/recover/<token>')
+@login.route('/recover/<token>', methods=['GET', 'POST'])
 def reset_token(token):
-    user = Admin.verify_reset_token(token)
-    form = ResetPasswordForm()
-    print('reset token success')
-    if user is None:
+    s = Serializer('secret')
+    try:
+        user_id = s.loads(token)['user_id']
+    except:
         flash('The given link was expired please generate a new one.', 'warning')
         return redirect(url_for('login.index'))
+    user = Admin.query.get(user_id)
+    print('reset token success')
+
+    form = reset_form()
+  
     
-    if form.validate_on_submit():
-        print('success')
-        hash_pw = generate_password_hash(form.password.data, 'sha256')
-        user.password = hash_pw
-        db.session.commit()
-        flash('Your password has been updated! You are now able to log in', 'success')
+    return render_template('reset.html', form=form, token=token)
+
+@login.route('/recovery/<token>', methods=['POST', 'GET'])
+def get_pw(token):
+    s = Serializer('secret')
+    try:
+        user_id = s.loads(token)['user_id']
+    except:
+        flash('The given link was expired please generate a new one.', 'warning')
         return redirect(url_for('login.index'))
-    return render_template('reset.html', form=form)
+    form = reset_form()
+    hash_pw = generate_password_hash(form.password.data, 'sha256')
+    update = Admin.query.filter_by(id=user_id).update(dict(password=hash_pw))
+    db.session.commit()
+    flash('Succefully updated the password!', 'success')
+    return redirect(url_for('login.index'))

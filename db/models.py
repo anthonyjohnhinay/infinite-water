@@ -22,16 +22,16 @@ class Admin(db.Model, UserMixin):
         )
         print(self.id)
         return serial.dumps({'user_id' : self.id})
-    @staticmethod
-    def verify_reset_token(token):
-        s = Serializer('secret')
-        try:
-            user_id = s.loads(token)['user_id']
-            print(user_id)
-        except:
-            print('failed')
-            return None
-        return Admin.query.get(user_id)
+    # @staticmethod
+    # def verify_reset_token(token):
+    #     s = Serializer('secret')
+    #     try:
+    #         user_id = s.loads(token)['user_id']
+    #         print(user_id)
+    #     except:
+    #         print('failed')
+    #         return None
+    #     return Admin.query.get(user_id)
 
 
 # for customers

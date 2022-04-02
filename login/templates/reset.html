@@ -12,14 +12,12 @@
      {% endfor %}
      {% endif %}
      {% endwith %}
-    <p class="mb-3">
-        Please enter the vaild email used in registration to recover account.
-    </p>
-    <form action="/recover" method="post">
-       
+   
+    <form action="{{url_for('login.get_pw', token=token)}}" method="post">
+        
         {{wtf.render_field(form.password)}}
         {{wtf.render_field(form.confirm_pw)}}
-        <button class="btn btn-primary  btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Reset Email</button>
+        <button class="btn btn-primary  btn-block" type="submit"><i class="fas fa-redo"></i> Reset Password</button>
     </form>
 </div>
 {%endblock%}
