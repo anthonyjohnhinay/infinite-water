@@ -51,31 +51,38 @@ $(document).ready(function(){
         var price = $('#price').val();
         var qty = $('#qty').val();
         if(productname != '' && price !=""){
-            $.ajax({
-                url: "/admin/api/products/add",
-                method: 'POST',
-                data:{
-                    selectprod : category,
-                    productname : productname,
-                    price : price,
-                    qty : qty
-
-                },
-                success:function(data) {
-                    if(data.error){
-                        $('#errorAlert2').text(data.error).show();
-				        $('#successAlert').hide();
-                    }
-                    else{
+            if(price >= 0){
+               if(qty >= 0){
+                $.ajax({
+                    url: "/admin/api/products/add",
+                    method: 'POST',
+                    data:{
+                        selectprod : category,
+                        productname : productname,
+                        price : price,
+                        qty : qty
+    
+                    },
+                    success:function(data) {
+                        if(data.error){
+                            $('#errorAlert2').text(data.error).show();
+                            $('#successAlert').hide();
+                        }
+                        else{
+                            
+                            $('#errorAlert').hide();
+                            $('#exampleModal').modal('hide');
+                            location.reload();      // this will set reload after the success
                         
-				        $('#errorAlert').hide();
-                        $('#exampleModal').modal('hide');
-                        location.reload();      // this will set reload after the success
-                    
-                        
+                            
+                        }
                     }
-                }
-            });
+                });
+               }
+               else{$('#errorAlert2').text('The value of quantity must not be negative').show();}
+            }
+            else{$('#errorAlert2').text('The value of price must not be negative').show();}
+            //end
         }
         
       

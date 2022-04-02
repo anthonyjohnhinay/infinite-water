@@ -1,7 +1,7 @@
 
 
 from flask import Blueprint, redirect, render_template, flash, request, url_for
-from form_fields import *
+from assets.form_fields import *
 from db.models import *
 from db.database import db
 from flask_login import current_user, login_required, logout_user
@@ -78,4 +78,10 @@ def manage_customers():
     name = db.session.query(Customer).order_by(Customer.id.desc()).all()
     form = customer()
     return render_template('customer_management.html', form=form, name=name)
-    
+@admin.route('/transaction')
+def manage_transaction():
+    form1 = transaction()
+    form2 = product_transaction()
+    return render_template(
+        'transaction_manage.html', 
+        form1=form1, form2=form2)

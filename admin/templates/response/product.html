@@ -1,0 +1,11 @@
+
+<div class="form-group ">
+    <label for="product">Products</label>
+    <select name="products" class="form-control"id="product_val" data-live-search = "true">
+        {% for row in product %} 
+            <option value="{{row.price}}">{{row.name}}</option>
+        {% endfor %}
+    </select>
+
+</div>
+

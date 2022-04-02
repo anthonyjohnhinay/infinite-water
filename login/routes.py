@@ -1,9 +1,12 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user
-from form_fields import email_check, login_form
+from flask_security import ResetPasswordForm
+from assets.form_fields import *
 from db.models import Admin
-from werkzeug.security import check_password_hash
-from config import config_email
+from db.database import db
+from werkzeug.security import check_password_hash, generate_password_hash
+from assets.configs import config_email
+from api.helpers import user_reset
 
 login = Blueprint('login', __name__,
 static_folder='static', template_folder='templates', static_url_path='/static/login')
@@ -45,10 +48,12 @@ def recover_post():
                     "warning"
                 )
             else:
+                user_reset(user)
                 flash(
                     "the reset link will be sent on your email",
                     "success"
                 )
+                return redirect(url_for('login.index'))
         else:
             flash(
                 "The email doesn't exist, please contact the app developers",
@@ -56,4 +61,21 @@ def recover_post():
             )
             return redirect(url_for('login.recover'))
         return render_template('forgot_pw.html', form=form)
-        
+
+@login.route('/recover/<token>')
+def reset_token(token):
+    user = Admin.verify_reset_token(token)
+    form = ResetPasswordForm()
+    print('reset token success')
+    if user is None:
+        flash('The given link was expired please generate a new one.', 'warning')
+        return redirect(url_for('login.index'))
+    
+    if form.validate_on_submit():
+        print('success')
+        hash_pw = generate_password_hash(form.password.data, 'sha256')
+        user.password = hash_pw
+        db.session.commit()
+        flash('Your password has been updated! You are now able to log in', 'success')
+        return redirect(url_for('login.index'))
+    return render_template('reset.html', form=form)

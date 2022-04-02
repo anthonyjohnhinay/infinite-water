@@ -1,8 +1,8 @@
 
 from flask import Blueprint, jsonify, redirect, request, url_for, flash
 from werkzeug.security import generate_password_hash
-from form_fields import *
-from api.helpers import gen_password
+from assets.form_fields import *
+from api.helpers import gen_password, email_reset
 from db.models import Admin
 from db.database import db
 
@@ -17,8 +17,9 @@ def admin_reset():
             'identifier' : 'error',
             'error' : 'this email cannot be reset'
         })
-    
+    # password db
     user = Admin.query.filter_by(id=user_id).first()
+    email_reset(user.email, user.user, raw_pw)
     hash_pw = generate_password_hash(raw_pw, 'sha256')
     update_user = Admin.query.filter_by(id=user_id).update(dict(
         password = hash_pw

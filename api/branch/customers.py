@@ -2,7 +2,7 @@ import re
 from flask import Blueprint, jsonify, redirect, render_template, url_for, flash, request
 from db.models import *
 from db.database import *
-from form_fields import *
+from assets.form_fields import *
 """"
 This branch route in the api is used only for the customers
 """

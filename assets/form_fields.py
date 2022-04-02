@@ -1,8 +1,8 @@
 from flask import Flask
-from api.helpers import product_catalog
+from api.helpers import customer_catalog, product_catalog
 from flask_wtf import FlaskForm
 from wtforms import StringField, BooleanField, PasswordField, SubmitField, EmailField, SelectField, IntegerField
-from wtforms.validators import InputRequired, Email
+from wtforms.validators import InputRequired, Email, EqualTo
 from wtforms_sqlalchemy.fields import QuerySelectField
 """
 Validators - are the checkers whether the form is submitted
@@ -19,6 +19,9 @@ class login_form(FlaskForm):
     password = PasswordField('Password', validators=[InputRequired()])
     remember = BooleanField('Remember me')
     submit = SubmitField()
+class reset_form(FlaskForm):
+    password = PasswordField('Password', validators=[InputRequired()])
+    confirm_pw = PasswordField('Confirm Password', validators=[InputRequired(), EqualTo('password')])
 class email_check(FlaskForm):
     email = EmailField('Name', validators=[InputRequired(), Email()])
 class add_user(FlaskForm):
@@ -42,3 +45,14 @@ class customer(FlaskForm):
     contact_number = IntegerField('Contact Number', validators=[InputRequired()])
     address = StringField('Address', validators=[InputRequired()])
     markers = StringField('Markers o Palatandaan', validators=[InputRequired()])
+class transaction(FlaskForm):
+    customertype = SelectField('Customer Type', choices=[
+        ('regular', 'Regular Customer'), ('guest', 'Guest Customer')])
+    optioncustomer =  StringField ('Name of Guest Customer', validators=[InputRequired()])
+    customername = QuerySelectField('Name of Customer',query_factory=customer_catalog, allow_blank=False)
+    contact_number = IntegerField('Contact Number', validators=[InputRequired()])
+    address = StringField('Address', validators=[InputRequired()])
+    markers = StringField('Markers o Palatandaan', validators=[InputRequired()])
+class product_transaction(FlaskForm):
+    categories = QuerySelectField('Product Category', query_factory=product_catalog, allow_blank=False)
+    qty = IntegerField('Quantity', validators=[InputRequired()])

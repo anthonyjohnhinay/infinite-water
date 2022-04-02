@@ -1,10 +1,13 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap4
+from flask_mail import Mail
 from flask_login import LoginManager
 from werkzeug.security import generate_password_hash
-from config import *
-from db.models import Admin, Anonymous
+from assets.configs import *
+from db.models import *
 from db.database import db
+from api.helpers import mail
+
 from os import path
 """
 Declaring all the necessary dependecies needed for
@@ -12,18 +15,18 @@ the project.
 """
 def config_app():
     app = Flask(__name__)
-    # this is for debug purposes always set to TRUE in config_prod to get any problems when developing.
-    app.config['DEBUG'] = config_prod
-    app.config['SECRET_KEY'] = config_secret
-    app.config['SQLALCHEMY_DATABASE_URI'] = config_db
-    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = config_track_modifications
-      
+    #change to prodconfig when deploying in live server
+    app.config.from_object('assets.configs.testconfig')
+    # this is to initialize all the resources outside the app factory
     db.init_app(app)
+    mail.init_app(app)
+
     login_manager = LoginManager()
     login_manager.login_view = 'login.index'
     login_manager.anonymous_user = Anonymous
     login_manager.init_app(app)
     bootstrap = Bootstrap4(app)
+    
     @login_manager.user_loader
     def load_user(user_id):
         return Admin.query.get(int(user_id))
@@ -47,7 +50,7 @@ def make_admin(app):
     with app.app_context():
         email = config_email
         pw = generate_password_hash(config_password, 'sha256')
-        create_user = Admin(email=email, password=pw)
+        create_user = Admin(email=email, password=pw, user=config_username)
         db.session.add(create_user)
         try:
             print('executed')
@@ -64,4 +67,4 @@ if __name__ == '__main__':
         setup_database(app)
         make_admin(app)
     
-    app.run(host=config_host)
+    app.run()

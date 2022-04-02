@@ -1,8 +1,9 @@
 
-from enum import unique
 from sqlalchemy.orm import backref
 from db.database import db
 from flask_login import UserMixin, AnonymousUserMixin
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+#from app import app
 from datetime import datetime
 
 # user admin manage
@@ -14,6 +15,25 @@ class Admin(db.Model, UserMixin):
     #since it is hashed it has many characters
     password = db.Column(db.String(255))
 
+    def get_token(self, expire_sec = 1800):
+        serial = Serializer(
+            'secret',
+            expire_sec
+        )
+        print(self.id)
+        return serial.dumps({'user_id' : self.id})
+    @staticmethod
+    def verify_reset_token(token):
+        s = Serializer('secret')
+        try:
+            user_id = s.loads(token)['user_id']
+            print(user_id)
+        except:
+            print('failed')
+            return None
+        return Admin.query.get(user_id)
+
+
 # for customers
 class Customer(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
@@ -21,6 +41,8 @@ class Customer(db.Model):
     contact_number = db.Column(db.String(100))
     address = db.Column(db.String(255))
     markers = db.Column(db.String(255))
+    def __repr__(self):
+        return f'{self.name}'
 
 #for products and catalog one to many
 class Catalog(db.Model):

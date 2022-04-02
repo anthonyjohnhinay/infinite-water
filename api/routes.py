@@ -17,3 +17,6 @@ api.register_blueprint(api_users, url_prefix="/users")
 
 from .branch.customers import api_customer
 api.register_blueprint(api_customer, url_prefix='/customers')
+
+from .branch.transaction import api_transaction
+api.register_blueprint(api_transaction, url_prefix='/transaction')
