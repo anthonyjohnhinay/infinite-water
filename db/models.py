@@ -75,4 +75,4 @@ class transaction_data(db.Model):
 # this is used to avoid any errors when browsing not login
 class Anonymous(AnonymousUserMixin):
   def __init__(self):
-    self.username = 'Guest'
+    self.user = 'Guest'

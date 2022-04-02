@@ -12,8 +12,9 @@ static_folder='static', template_folder='templates', static_url_path='/static/ad
 from api.routes import api
 admin.register_blueprint(api, url_prefix='/api')
 @admin.app_context_processor
+
 def get_current():
-    return dict(current = current_user.user.title())
+    return dict(current = current_user.user)
 
 @admin.route('/')
 @login_required
