@@ -32,5 +32,5 @@ class prodconfig(Config):
     Use this class when hosting online or production mode
     """
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'postgres://zhhvbyzcbrygqp:8ced37f5449d5fcb12eb2651c4a269d84a2ab7a5c1f548977f668a85180b4693@ec2-3-225-213-67.compute-1.amazonaws.com:5432/d7nmvln4ji7uo4'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://zhhvbyzcbrygqp:8ced37f5449d5fcb12eb2651c4a269d84a2ab7a5c1f548977f668a85180b4693@ec2-3-225-213-67.compute-1.amazonaws.com:5432/d7nmvln4ji7uo4'
     SERVER_NAME = '100.115.92.197:5000'
