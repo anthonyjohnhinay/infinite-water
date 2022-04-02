@@ -16,7 +16,7 @@ the project.
 def config_app():
     app = Flask(__name__)
     #change to prodconfig when deploying in live server
-    app.config.from_object('assets.configs.testconfig')
+    app.config.from_object('assets.configs.prodconfig')
     # this is to initialize all the resources outside the app factory
     db.init_app(app)
     mail.init_app(app)
