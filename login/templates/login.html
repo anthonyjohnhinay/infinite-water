@@ -18,7 +18,7 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
-        <form action="/" method="post">
+        <form action="{{url_for('login.index')}}" method="post">
             {{wtf.render_field(form.email, placeholder="Email Address")}}
             <!-- Password field-->
             <div class="input-group mb-3">
@@ -29,7 +29,7 @@
             <div class="form-check d-flex justify-content-start mb-4">
                 {{wtf.render_field(form.remember)}}
             </div>
-        <p class="small mb-4 pb-lg-1"><a href="/recover">Forgot Password?</a></p>
+        <p class="small mb-4 pb-lg-1"><a href="{{url_for('login.recover')}}">Forgot Password?</a></p>
         <!-- Submit button-->
         <div class="col-md-12 text-center">
             <button class="btn btn-primary btn-lg btn-block" id="loginbutton" type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
