@@ -56,3 +56,16 @@ class transaction(FlaskForm):
 class product_transaction(FlaskForm):
     categories = QuerySelectField('Product Category', query_factory=product_catalog, allow_blank=False)
     qty = IntegerField('Quantity', validators=[InputRequired()])
+
+class silent_form(FlaskForm):
+    """
+    Silent adding of users in database used for,
+    manual migrations
+    """
+    email = EmailField('Email', validators=[InputRequired()])
+    username = StringField('Username', validators=[InputRequired()])
+    password = StringField('Password', validators=[InputRequired()])
+    hash_pw = StringField('Hashed Password (Optional)', validators=[InputRequired()])
+    user_roles = SelectField('User Role', choices=[
+        ('Admin', 'Admin'), ('Staff', 'Staff')
+    ])

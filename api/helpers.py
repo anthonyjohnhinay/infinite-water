@@ -12,6 +12,8 @@ from flask_mail import Mail, Message
 Initializing the mail thru the init_app(app) in app dir
 """
 mail = Mail()
+
+
 def gen_password():
     pw = []
     char = list(string.ascii_letters + string.digits)
@@ -21,6 +23,7 @@ def gen_password():
         pw.append(random.choice(char))
     product = ("".join(pw))
     return product
+
 # this uses in the form_field.py for the dynamic SelectField
 def product_catalog():
     return Catalog.query
@@ -58,6 +61,9 @@ def user_reset(user):
     mail.send(msg)
 
 def create_user(email, username, pw):
+    """
+    Sends the email from account creation `email`, `username`, `password`
+    """
     msg = Message('Account Creation',
     sender='Infinity-flow',
     recipients=[email],

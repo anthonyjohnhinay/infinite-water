@@ -17,10 +17,13 @@ the project.
 def config_app():
     app = Flask(__name__)
     #change to prodconfig when deploying in live server
-    app.config.from_object('assets.configs.prodconfig')
+    app.config.from_object('assets.configs.betaconfig')
+
+
     # this is to initialize all the resources outside the app factory
     db.init_app(app)
     mail.init_app(app)
+    
 
     login_manager = LoginManager()
     login_manager.login_view = 'login.index'
@@ -44,7 +47,10 @@ def config_app():
     app.register_blueprint(front, url_prefix='/')
 
 
+
     return app
+
+
 # this is used for registering db models into sql
 def setup_database(app):
     with app.app_context():
@@ -70,5 +76,6 @@ if __name__ == '__main__':
     if not path.isfile('/db/admin.db'):
         setup_database(app)
         make_admin(app)
+       
     
     app.run()

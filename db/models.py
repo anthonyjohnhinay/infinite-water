@@ -1,6 +1,7 @@
 
 from sqlalchemy.orm import backref
 from db.database import db
+from db.models import *
 from flask_login import UserMixin, AnonymousUserMixin
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 #from app import app
@@ -62,7 +63,7 @@ class transaction_data(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     transactionid = db.Column(db.Integer, unique=True)
     customername = db.Column(db.String(100))
-    customercontact = db.Column(db.Integer)
+    customercontact = db.Column(db.String(255))
     customeraddress = db.Column(db.String(255))
     customermarkers = db.Column(db.String(255))
     productcatalog = db.Column(db.String(100))

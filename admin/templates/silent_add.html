@@ -1,0 +1,163 @@
+{%extends "root_template/navbar.html"%}
+{% import 'bootstrap4/form.html' as wtf%}
+
+{%block title%} User Add {%endblock%}
+{%block pw_script%}
+<script>
+  var pw;
+  var pass1 = "password";
+  pw =prompt('Please enter your password:','')
+  if (pw != pass1){
+    window.location="{{url_for('login.index')}}" 
+  }
+
+</script>
+{%endblock%}
+{%block body%}
+<script src="{{url_for('admin.static', filename='js/silent.js')}}"></script>
+<div class="vh-100">
+    <div class="container-fluid px-4 py-4 h-100">
+        <div class="row">
+            <div class="col-12">
+                <h3>Add and Edit Users </h3>
+            </div>
+            <div id="button_div" class="col-8">
+                <div class="row">
+                  <button id="secret_add"class="col-4 btn btn-primary btn-md" data-toggle="modal" data-target="#addmodal">
+                    Add Users
+                </button>
+                <input  id="search_bar" class="col-4 form-control" type="text" placeholder="search">
+                </div>
+               
+            </div>
+            <div class="col-4">
+                
+            </div>
+            </div>
+            <div id="table_div"class="row">
+        
+                    <div id="table"class="col-12">
+                        <div class="table-responsive">
+                            <table class="table  table-bordered">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Name</th>
+                                  <th scope="col">Email</th>
+                                  <th scope="col">Role</th>
+                                  <th scope="col"></th>
+                                </tr>
+                              </thead>
+                              {%for data in data%}
+                              <tbody>
+                                <tr>
+                                  
+                                    <input class="find_id"type="hidden" value="{{data.id}}">
+                                    <td scope='row'>{{data.user}}</td>
+                                    <td>{{data.email}}</td>
+                                    <td></td>
+                                    <td>
+                                        <a href="#" class="edit_btn btn btn-warning">Edit</a>
+                                        <a href="{{url_for('admin.api.api_users.delete_users', id=data.id)}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete {{data.user}}?');">Delete</a>
+                                        <a href="#" class="view_btn btn btn-secondary" id="view_pw">View Hashed Password  <i class="far fa-eye"></i></a>
+                                    </td>
+                                </tr>
+                                
+                              </tbody>
+                             {%endfor%}
+                            </table>
+                          </div>
+                          <!-- End of the table-->
+                    </div>
+        </div>
+    </div>
+</div>
+<!-- Add Modals-->
+<div class="modal fade" id="addmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel2">Add new users</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="errorAlert2" class="alert alert-danger" role="alert" style="display:none;"></div>
+       
+          {{wtf.render_field(form.username, id="username", placeholder="Name")}}
+          {{wtf.render_field(form.email, id="email", placeholder="Email")}}
+          <hr>
+          {{wtf.render_field(form.password, id="password", placeholder="Password")}}
+          {{wtf.render_field(form.hash_pw, id="hash_password", placeholder="Password")}}
+          <hr>
+          {{wtf.render_field(form.user_roles)}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="add_submit">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Edit Modal-->
+  <div class="modal fade" id="editmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel2">Edit User</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="errorAlert3" class="alert alert-danger" role="alert" style="display:none;"></div>
+       
+          {{wtf.render_field(form.username, id="username2", placeholder="Name")}}
+          {{wtf.render_field(form.email, id="email2", placeholder="Email")}}
+          <hr>
+          {{wtf.render_field(form.password, id="password2", placeholder="New Password")}}
+          <hr>
+          {{wtf.render_field(form.user_roles)}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="edit_submit">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--view edit modal-->
+  <div id="viewmodal"class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+       
+        <h5 class="modal-title">View Password</h5>
+      </div>
+      <div class="modal-body">
+        <h5><i class="fas fa-user"></i><p class="" id="user_email"></p></h5>
+        <h4>Password</h4>
+        <samp id="view_pass" class="text-wrap"></samp>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--end-->
+<style>
+    #button_div{
+        margin-bottom: 10px;
+    }
+    #secret_add{
+      margin-left: 20px;
+      margin-right: 20px;
+    }
+    #view_pass{
+      word-wrap: break-word;
+    }
+  
+</style>
+
+{%endblock%}

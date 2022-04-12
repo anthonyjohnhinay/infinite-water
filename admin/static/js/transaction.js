@@ -77,8 +77,11 @@ $(document).ready(function(){
         var qty = $('#qty').val()
         //end
        if(window.total == null){
-           $('#erroralert').text('Please input all the details!').show()
+           $('#errorAlert').text('Please input all the details!').show()
        }
+       if(customername == ""){
+        $('#errorAlert').text('Please input customer name').show()
+    }
        else{
         swal({
             title: "Are you sure?",

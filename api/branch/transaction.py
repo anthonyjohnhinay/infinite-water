@@ -6,7 +6,10 @@ from db.models import *
 from db.database import db
 
 api_transaction= Blueprint('api_transaction', __name__)
-
+@api_transaction.post('/delete')
+def transaction_delete():
+    trans_id = request.form['id']
+    
 @api_transaction.post('/request')
 def get_customer():
     customer = request.form['customer']

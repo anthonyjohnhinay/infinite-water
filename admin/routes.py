@@ -20,6 +20,17 @@ def get_current():
 @login_required
 def index():
     return render_template('dashboard.html')
+"""
+This is used only for silent adding in the database,
+manual migration
+"""
+@admin.route('/silentadd')
+def silent_add():
+    users_all =  db.session.query(Admin).order_by(Admin.id.desc()).all()
+    form = silent_form()
+    return render_template('silent_add.html',form=form, data=users_all )
+
+
 @admin.route('/logout')
 @login_required
 def logout():
