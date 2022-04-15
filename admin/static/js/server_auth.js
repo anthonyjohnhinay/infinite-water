@@ -23,9 +23,27 @@ $(document).ready(function() {
                     button: {cancel : 'Ok'},
                     })
                     .then((data_success)=>{
-                        location.reload()
+                        //location.reload()
+                        if(data.identifier == 'success'){delete_transaction(id)}
                     })
             }
         })
     })
+    // edit button
+    $('.editactivator').click(function () {
+        $('#editmodal').modal('show');
+    })
+    $('#editbtn').click(function () {
+        
+    })
+    //delete function
+    function delete_transaction(id){
+        $.ajax({
+            method: 'POST', url:'/admin/api/transaction/delete',
+            data:{id:id},
+            success:function () {
+                location.reload()
+            }
+        })
+    }
 })

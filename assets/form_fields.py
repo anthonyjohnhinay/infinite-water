@@ -52,7 +52,10 @@ class transaction(FlaskForm):
     customername = QuerySelectField('Name of Customer',query_factory=customer_catalog, allow_blank=False)
     contact_number = IntegerField('Contact Number', validators=[InputRequired()])
     address = StringField('Address', validators=[InputRequired()])
-    markers = StringField('Markers o Palatandaan', validators=[InputRequired()])
+    status = SelectField('Delivery Status ', choices=[
+       ('Pending', 'Pending / Waiting for Delivery'), ('Delivered', 'Delivered / Picked Up'), 
+        ('Not delivered', 'Not delivered')
+    ])
 class product_transaction(FlaskForm):
     categories = QuerySelectField('Product Category', query_factory=product_catalog, allow_blank=False)
     qty = IntegerField('Quantity', validators=[InputRequired()])

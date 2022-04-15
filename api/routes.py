@@ -39,17 +39,6 @@ def user_verify():
     if user:
         password_check = check_password_hash(user.password, pw)
         if password_check:
-            data = transaction_data.query.filter_by(id=id).delete()
-            try:
-                db.session.commit()
-            except Exception as e:
-                return jsonify({
-                'title' : 'Something Wrong',
-                'identifier' : 'danger',
-                'info' : e
-                })
-            finally:
-                db.session.close()
             return jsonify({
                 'title' : 'Success',
                 'identifier' : 'success',

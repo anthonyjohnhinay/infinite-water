@@ -9,7 +9,12 @@ api_transaction= Blueprint('api_transaction', __name__)
 @api_transaction.post('/delete')
 def transaction_delete():
     trans_id = request.form['id']
-    
+    data = transaction_data.query.filter_by(id=trans_id).delete()
+    try:
+        db.session.commit()
+    finally:
+        db.session.close()
+    return jsonify({'success' : 'deleted the transaction'})
 @api_transaction.post('/request')
 def get_customer():
     customer = request.form['customer']
@@ -32,7 +37,7 @@ def get_transaction():
         customername = request.form['customername']
         customercontact = request.form['customercontact']
         customeraddress =  request.form['customeraddress']
-        customermarkers = request.form['customermarkers']
+        deliverystatus = request.form['deliverystatus']
         productcatalog = request.form['productcatalog']
         productname = request.form['productname']
         productprice = request.form['productprice']
@@ -43,8 +48,8 @@ def get_transaction():
 
         add_customer = transaction_data(customername = customername.title(),
         customercontact = customercontact,
-        customeraddress = customermarkers,
-        customermarkers = customeraddress,
+        productstatus = deliverystatus,
+        customeraddress = customeraddress,
         productcatalog = productcatalog,
         productname = productname,
         total = producttotal,
@@ -57,9 +62,17 @@ def get_transaction():
             db.session.commit()
         except Exception as e:
             print(e)
+        finally:
+            db.session.close()
         return '200'
         
-         
+@api_transaction.post('/edit')
+def fetch_status():
+    tid = request.form['id']
+    transaction = transaction_data.query.filter_by(id=tid).first()
+    return jsonify({
+        'status' : transaction.productstatus
+    })
             
             
             

@@ -65,7 +65,7 @@ class transaction_data(db.Model):
     customername = db.Column(db.String(100))
     customercontact = db.Column(db.String(255))
     customeraddress = db.Column(db.String(255))
-    customermarkers = db.Column(db.String(255))
+    productstatus = db.Column(db.String(255))
     productcatalog = db.Column(db.String(100))
     productname = db.Column(db.String(100))
     total = db.Column(db.Integer)
