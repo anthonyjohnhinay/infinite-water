@@ -42,11 +42,11 @@ def user_verify():
             return jsonify({
                 'title' : 'Success',
                 'identifier' : 'success',
-                'info' : 'Succesfully deleted the transaction'
+                'info' : 'Succesfully Authenticated the transaction'
                 })
     return jsonify({
             'title' : 'Forbidden',
             'identifier' : 'warning',
-            'info' : 'You dont have privilege to delete. '
+            'info' : 'Wrong credentials, please try again. '
             })
     

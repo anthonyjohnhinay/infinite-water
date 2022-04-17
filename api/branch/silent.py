@@ -65,7 +65,27 @@ def after_request():
         'success' : f'{username} has been edited',
         'identfier' : 'success'
     })
-    
+@api_silent.post('/changepassword')
+def change_pw_user():
+    user_id = request.form['id']
+    password = request.form['password']
+    if user_id == '1':
+        return jsonify({
+            'title' : 'Forbidden',
+            'msg' : 'This email cannot be edited',
+            'identifier' : 'danger'
+        })
+    hash_pw = generate_password_hash(password, 'sha256')
+    update = Admin.query.filter_by(id=user_id).update(dict( password=hash_pw))
+    try:
+        db.session.commit()
+    finally:
+       db.session.close()
+    return jsonify({
+        'title' : 'Success!',
+        'msg' : f'Succefully change password!',
+        'identfier' : 'success'
+    })
 @api_silent.post('/add')
 def add_acount():
     username = request.form['username']

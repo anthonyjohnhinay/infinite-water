@@ -1,15 +1,21 @@
-{%extends "root_template/navbar.html"%}
+{%extends "root_template/modals.html"%}
 {% import 'bootstrap4/form.html' as wtf%}
 {%block title%} Transactions {%endblock%}
+
 {%block body%}
 <div class="container-fluid py-3 h-100">
     <div class="row">
         <div class="col-12">
             <h3>Manage Transactions</h3>
         </div>
+       
         <div id="addbtn"class="col-lg-3 col-md-6">
             <button class="btn btn-success btn-md"data-toggle="modal" data-target="#exampleModal" id="selectmodal"><i class="fas fa-briefcase"></i> New Transactions</button>
         </div>
+        <div class="col-4" id="transac-container"> 
+          <input type="text" class="form-control" id="transacinput" placeholder="search transacation">
+          
+      </div>
         <div id="table"class="col-12">
             <div class="table-responsive">
                 <table class="table  table-bordered">
@@ -26,12 +32,20 @@
                     </tr>
                   </thead>
                   {%for data in transaction%}
-                  <tbody>
+                  <tbody id="transactable">
                     <tr>
                       
-                        <td scope="row">{{data.id}}</td>
+                        <td scope="row">{{data.transactionid}}</td>
                         <td>
                           {{data.customername}}
+                          <br>
+                          {%if data.productbal == 0%}
+                          <span class="badge badge-pill badge-success"><i class="fas fa-check-circle"></i> paid - {{data.payment_stat}}</span>
+                          {%endif%}
+                          {%if data.productbal%}
+                          <span class="badge badge-pill badge-warning"><i class="fas fa-check-circle"></i> Unpaid balance - {{data.payment_stat}}</span>
+                          {%endif%}
+                          
                         </td>
                         <td>{{data.customeraddress}}</td>
                         <td>{{data.customercontact}}</td>
@@ -186,14 +200,14 @@
           </div>
           <div class="modal-body">
             <h4>Edit Delivery Status</h4>
-            {{wtf.render_field(form1.status)}}
+            {{wtf.render_field(form1.trans_status)}}
             <hr>
             <h4>Edit all transaction details</h4>
             <button class="btn btn-warning btn-block" id="editall"><i class="fas fa-shield-check"></i> Edit All Detais</button>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal"><i class="fas fa-save"></i> Save</button>
+            <button type="button" class="btn btn-primary" id="submitedit"><i class="fas fa-save"></i> Save</button>
           </div>
         </div>
       </div>
@@ -203,10 +217,15 @@
   .status-btn{
     border-radius: 20px;
   }
- 
+
     #addbtn{
         margin-top: 15px;
         margin-bottom: 10px;
+    }
+    #transac-container{
+      margin-top: 15px;
+      margin-bottom: 10px;
+     
     }
     #formprice{
       font-size: 40px;
@@ -221,5 +240,6 @@
     }
 </style>
 <script src="{{url_for('admin.static', filename='js/transaction.js')}}"></script>
+<script src="{{url_for('admin.static', filename='js/search_func.js')}}"></script>
 <script src="{{url_for('admin.static', filename='js/server_auth.js')}}"></script>
 {%endblock%}

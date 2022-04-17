@@ -56,6 +56,10 @@ class transaction(FlaskForm):
        ('Pending', 'Pending / Waiting for Delivery'), ('Delivered', 'Delivered / Picked Up'), 
         ('Not delivered', 'Not delivered')
     ])
+    trans_status = SelectField('Delivery Status ', choices=[
+       ('Pending', 'Pending / Waiting for Delivery'), ('Delivered', 'Delivered / Picked Up'), 
+        ('Not delivered', 'Not delivered')
+    ])
 class product_transaction(FlaskForm):
     categories = QuerySelectField('Product Category', query_factory=product_catalog, allow_blank=False)
     qty = IntegerField('Quantity', validators=[InputRequired()])

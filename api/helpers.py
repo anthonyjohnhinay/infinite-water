@@ -13,7 +13,7 @@ Initializing the mail thru the init_app(app) in app dir
 """
 mail = Mail()
 
-
+# utilities to be used
 def gen_password():
     pw = []
     char = list(string.ascii_letters + string.digits)
@@ -23,6 +23,9 @@ def gen_password():
         pw.append(random.choice(char))
     product = ("".join(pw))
     return product
+def time():
+    now = datetime.now()
+    return now
 
 # this uses in the form_field.py for the dynamic SelectField
 def product_catalog():

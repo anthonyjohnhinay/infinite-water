@@ -1,11 +1,13 @@
 
 from flask import Blueprint, jsonify, request, render_template
+from api.helpers import time
 from assets.form_fields import transaction
 
 from db.models import *
 from db.database import db
 
 api_transaction= Blueprint('api_transaction', __name__)
+
 @api_transaction.post('/delete')
 def transaction_delete():
     trans_id = request.form['id']
@@ -45,7 +47,6 @@ def get_transaction():
         userbal = request.form['userbal']
         qty = request.form['qty']
         print(customername, productname, qty)
-
         add_customer = transaction_data(customername = customername.title(),
         customercontact = customercontact,
         productstatus = deliverystatus,
@@ -62,16 +63,28 @@ def get_transaction():
             db.session.commit()
         except Exception as e:
             print(e)
+            return jsonify({'error': str(e)})
         finally:
             db.session.close()
         return '200'
-        
+# fetch in edit status of client product
 @api_transaction.post('/edit')
+
 def fetch_status():
     tid = request.form['id']
+    if 'newstatus' in request.form:
+        status = request.form['newstatus']
+        update = transaction_data.query.filter_by(id=tid).update(dict(productstatus=status, transac_stat=time()))
+        try:
+            db.session.commit()
+        finally:
+            db.session.close()
+    
     transaction = transaction_data.query.filter_by(id=tid).first()
     return jsonify({
-        'status' : transaction.productstatus
+        'status' : transaction.productstatus,
+        'time' : transaction.transac_stat
+
     })
             
             

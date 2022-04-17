@@ -116,6 +116,17 @@ $(document).ready(function(){
                          qty : qty
                       },
                       success:function(data){
+                          if(data.error){
+                            swal({
+                                title: "Something went wrong.",
+                                text: data.error,
+                                icon: "danger",
+                                button: "Okay",
+                              }).then(function(){
+                                  $('#exampleModal').modal('hide');
+                                  location.reload();
+                              })
+                          }
                         swal({
                             title: "Yay!",
                             text: 'Transaction has been added',
