@@ -15,7 +15,8 @@ to use import the file name then you can use * to import all or specified by
 the class name itself.
 """
 class login_form(FlaskForm):
-    email = EmailField('Name', validators=[InputRequired(), Email()])
+    # email = EmailField('Name', validators=[InputRequired(), Email()])
+    email = StringField('Name', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
     remember = BooleanField('Remember me')
     submit = SubmitField()

@@ -88,22 +88,31 @@
     <!-- Big Modal-->
 
 </div>
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"  data-backdrop="static"aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title" id="exampleModalLabel">New Transaction</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close reset">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
           <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+          <!-- Dismissable alert hidden for edit -->
+          <input type="hidden" name="" id="clienttransid">
+          <div id="zoomwarn"class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none;">
+            <i class="fal fa-info-circle"></i> We suggest you to lower the zoom by <strong> 80% or less</strong> for better viewing.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
           <h4><i class="fal fa-user-chart"></i> Customer Identity</h4>
+         
           <!-- Modal Content-->
           <div class="form-row">
             <!--Forms-->
-            <div class="form-group col-md-4">
+            <div id="customertypediv" class="form-group col-md-4">
               {{wtf.render_field(form1.customertype)}}
             </div>
             <div id="guestcustom"class="form-group col-md-4" style="display: none;">
@@ -112,7 +121,7 @@
             <div id="regcustom" class="form-group col-md-4" style="display: block;">
               {{wtf.render_field(form1.customername,class='selectpicker',**{'data-live-search': 'true'})}}
             </div>
-            <div class="form-group col-md-4">
+            <div id="usercontactnum"class="form-group col-md-4">
               {{wtf.render_field(form1.contact_number)}}
             </div>
             <div class="form-group col-md-12">
@@ -157,8 +166,10 @@
           {{wtf.render_field(form1.status)}}
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-secondary reset" data-dismiss="modal">Close</button>
           <button type="button" class="btn btn-primary" id="submitdata">Save</button>
+          <!--This button will appear when editing -->
+          <button type="button" class="btn btn-primary" id="editsubmit" style="display: none;"><i class="fal fa-edit"></i> Save Edit</button>
         </div>
       </div>
     </div>
@@ -176,7 +187,7 @@
         </div>
         <div class="modal-body">
           <label for="email">Email Address</label>
-          <input type="text" class="form-control" id="emailinput" placeholder="User Email">
+          <input type="text" class="form-control" id="emailinput" placeholder="Registered Email or Username">
           <label for="email">Password</label>
           <input type="password" name="" id="passwordinput" class="form-control" placeholder="User Password">
         </div>
@@ -206,7 +217,7 @@
             <button class="btn btn-warning btn-block" id="editall"><i class="fas fa-shield-check"></i> Edit All Detais</button>
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-secondary reset" data-dismiss="modal">Close</button>
             <button type="button" class="btn btn-primary" id="submitedit"><i class="fas fa-save"></i> Save</button>
           </div>
         </div>
@@ -238,8 +249,12 @@
       font-size: 60px;
       font-weight: 300;
     }
+    .table-responsive{
+      max-height: 1200px;
+    }
 </style>
 <script src="{{url_for('admin.static', filename='js/transaction.js')}}"></script>
 <script src="{{url_for('admin.static', filename='js/search_func.js')}}"></script>
 <script src="{{url_for('admin.static', filename='js/server_auth.js')}}"></script>
+<script src="{{url_for('admin.static', filename='js/transaction/editcomplete.js')}}"></script>
 {%endblock%}

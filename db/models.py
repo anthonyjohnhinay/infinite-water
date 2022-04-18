@@ -10,6 +10,7 @@ from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from datetime import datetime
 now = datetime.now()
 today = now.strftime('%Y%m%d')
+today = (today+'0')
 
 # user admin manage
 class Admin(db.Model, UserMixin):

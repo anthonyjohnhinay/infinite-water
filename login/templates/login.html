@@ -19,7 +19,7 @@
     {% endif %}
     {% endwith %}
         <form action="{{url_for('login.index')}}" method="post">
-            {{wtf.render_field(form.email, placeholder="Email Address")}}
+            {{wtf.render_field(form.email, placeholder="Email Address or Username")}}
             <!-- Password field-->
             <div class="input-group mb-3">
                 <!--https://getbootstrap.com/docs/4.0/components/input-group/-->

@@ -35,7 +35,7 @@ def user_verify():
     id = request.form['id']
     email= request.form['email']
     pw = request.form['password']
-    user = Admin.query.filter_by(email=email).first()
+    user = db.session.query(Admin).filter((Admin.email==email) | (Admin.user == email)).first()
     if user:
         password_check = check_password_hash(user.password, pw)
         if password_check:

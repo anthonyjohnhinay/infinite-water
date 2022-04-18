@@ -37,11 +37,12 @@ $(document).ready(function() {
         if(stats.status == 'Delivered'){
             $("label[for*='trans_status']").html(' Delivery Status: <span class="badge badge-pill badge-success"><i class="fas fa-check-circle"></i> Delivered at '+stats.time +'</span>');
             $('#trans_status').prop('disabled', true )
+            $('#submitedit').prop('disabled', true )
         }
         else{
             $("label[for*='status']").html('Delivery Status: ');
             $('#trans_status').prop('disabled', false )
-            
+            $('#submitedit').prop('disabled', false )
         }
        
         
@@ -131,6 +132,7 @@ $(document).ready(function() {
                 data:{ id:id, email:email, password:password},
                 success:function(data){
                     window.auth_stat = 'success';
+                    
                     swal({
                         title: data.title,
                         text: data.info,
@@ -140,15 +142,77 @@ $(document).ready(function() {
                         .then((data_success)=>{
                             //location.reload()
                             if(data.identifier == 'success'){
-                                
+                                client = get_trans_info(id, 'fetch')
+                                $('#exampleModal').modal('show');
                                 $('#authmodal').modal('hide');
-                                
+                                $('#clienttransid').val(id)
+                                add_client_info(client)
                             }
                         })
                 }
             })
-            return(auth_stat)
+            
         })
     }
-    
+    function get_trans_info(id, request){
+        if(request=='fetch'){
+            $.ajax({method:'POST', async:false ,url:'/admin/api/transaction/editall',
+            data:{id:id},
+        })
+        .done(function(data){
+            client_info = data
+            console.log(client_info.customername)
+            
+        })
+        return(client_info);
+        }
+    }
+    function clear_edit(){
+        $('#qty').val('');
+        $('#formprice').val();
+        $('#contact_number').val('');
+        $('#address').val('');
+        
+    }
+    function return_default(){
+        $('#qty').val('');
+        $('#formprice').val();
+        $('#contact_number').val('');
+        $('#address').val('');
+        // back to default
+        $('#submitdata').show();
+        $('#editsubmit').hide();
+        $('#zoomwarn').hide()
+
+        $('#regcustom').show();
+        $('#customertypediv').show()
+
+        $('#guestcustom').hide()
+        $('#customertype').prop('disabled', false)
+        $('#guestcustom').prop('class', 'form-group col-md-4')
+        $('#usercontactnum').prop('class', 'form-group col-md-4')
+        $('#exampleModalLabel').text('Add Transaction')
+    }
+    function add_client_info(client){
+        // hide all the needed details
+        $('#regcustom').hide();
+        $('#customertypediv').hide()
+        // show
+        $('#guestcustom').show()
+        $('#customertype').prop('disabled', true)
+        $('#guestcustom').prop('class', 'form-group col-md-6')
+        $('#usercontactnum').prop('class', 'form-group col-md-6')
+        $('#exampleModalLabel').text('Edit Transaction')
+        // get all the details
+        $('#optioncustomer').val(client.customername);
+        $('#contact_number').val(client.customercontact);
+        $('#address').val(client.customeraddress);
+        $('#qty').val(client.qty);
+
+        // hide the transaction submit button 
+        $('#submitdata').hide();
+        $('#editsubmit').show();
+        $('#zoomwarn').show()
+        
+    }
 })

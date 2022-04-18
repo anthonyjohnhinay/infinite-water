@@ -86,6 +86,62 @@ def fetch_status():
         'time' : transaction.transac_stat
 
     })
+
+@api_transaction.post('/editall')
+def fetch_all():
+    tid = request.form['id']
+    transaction = transaction_data.query.filter_by(id=tid).first()
+    return jsonify({
+        'customername' : transaction.customername,
+        'customercontact' : transaction.customercontact,
+        'customeraddress' : transaction.customeraddress,
+        'productstatus' : transaction.productstatus,
+        'productcatalog' : transaction.productcatalog,
+        'productname' : transaction.productname,
+        'total' : transaction.total,
+        'qty' : transaction.qty,
+        'productprice' : transaction.productprice,
+        'productbal' : transaction.productbal,
+
+    })
+@api_transaction.post('/editsubmit')
+def editsubmit():
+        id= request.form['id']
+        customername = request.form['customername']
+        customercontact = request.form['customercontact']
+        customeraddress =  request.form['customeraddress']
+        deliverystatus = request.form['deliverystatus']
+        productcatalog = request.form['productcatalog']
+        productname = request.form['productname']
+        productprice = request.form['productprice']
+        productprice = int(productprice)
+        producttotal = request.form['producttotal']
+        producttotal = int(producttotal)
+        userbal = request.form['userbal']
+        userbal = int(userbal)
+        qty = request.form['qty']
+        print(customername, productname, qty)
+        add_customer = transaction_data.query.filter_by(id=id).update(dict(
+        customername = customername.title(),
+        payment_stat = time(),
+        customercontact = customercontact,
+        productstatus = deliverystatus,
+        customeraddress = customeraddress,
+        productcatalog = productcatalog,
+        productname = productname,
+        total = producttotal,
+        qty = qty,
+        productprice = productprice,
+        productbal = userbal
+        ))
+        try:
+            db.session.commit()
+        except Exception as e:
+            print(e)
+            return jsonify({'error': str(e)})
+        finally:
+            db.session.close()
+        return '200'
             
             
             
