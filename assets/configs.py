@@ -27,10 +27,17 @@ class testconfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'sqlite:///db/admin.db'
     SERVER_NAME = '100.115.92.197:5000'
+class betaconfig(Config):
+    """
+    Beta Database for unreleased version, use this to avoid
+    f*cked up DB on production
+    """
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'postgresql://zbcolxmj:uHEl_ZeICEWl5EDlCql5YSBat8wQ3cEt@satao.db.elephantsql.com/zbcolxmj'
 class prodconfig(Config):
     """
     Use this class when hosting online or production mode
     """
-    DEBUG = False
+    DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'postgresql://zhhvbyzcbrygqp:8ced37f5449d5fcb12eb2651c4a269d84a2ab7a5c1f548977f668a85180b4693@ec2-3-225-213-67.compute-1.amazonaws.com:5432/d7nmvln4ji7uo4'
     

@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_bootstrap import Bootstrap4
 from flask_mail import Mail
+from flask_migrate import Migrate
 from flask_login import LoginManager
 from werkzeug.security import generate_password_hash
 from assets.configs import *
@@ -17,16 +18,20 @@ def config_app():
     app = Flask(__name__)
     #change to prodconfig when deploying in live server
     app.config.from_object('assets.configs.prodconfig')
+
+
     # this is to initialize all the resources outside the app factory
     db.init_app(app)
     mail.init_app(app)
+    
 
     login_manager = LoginManager()
     login_manager.login_view = 'login.index'
     login_manager.anonymous_user = Anonymous
     login_manager.init_app(app)
     bootstrap = Bootstrap4(app)
-    
+    # for any migrations needed 
+    migrate = Migrate(app, db)
     @login_manager.user_loader
     def load_user(user_id):
         return Admin.query.get(int(user_id))
@@ -35,12 +40,17 @@ def config_app():
     from admin.routes import admin
     app.register_blueprint(admin, url_prefix='/admin')
     from login.routes import login
-    app.register_blueprint(login, url_prefix='/')
+    app.register_blueprint(login, url_prefix='/login')
     from errors.routes import error
     app.register_blueprint(error)
+    from front.routes import front
+    app.register_blueprint(front, url_prefix='/')
+
 
 
     return app
+
+
 # this is used for registering db models into sql
 def setup_database(app):
     with app.app_context():
@@ -66,5 +76,6 @@ if __name__ == '__main__':
     if not path.isfile('/db/admin.db'):
         setup_database(app)
         make_admin(app)
+       
     
     app.run()
