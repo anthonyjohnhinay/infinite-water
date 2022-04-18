@@ -62,7 +62,6 @@
                     <th scope="col">Id </th>
                     <th scope="col">Product Name</th>
                     <th scope="col">Price</th>
-                    <th scope="col">Quantity</th>
                     <th scope="col"></th>
                   </tr>
                 </thead>
@@ -72,7 +71,6 @@
                       <td>{{product.catalog_id}}</td>
                       <td scope="row">{{product.name}}</td>
                       <td>{{product.price}}</td>
-                      <td>{{product.quantity}}</td>
                       <td>
                        <a href="{{url_for('admin.edit_product', id=product.id)}}" target="_blank"class="btn btn-warning">Edit product</a> 
                        <a href="{{url_for('admin.api.api_product.delete_content', id=product.id)}}" class="btn btn-danger">Delete</a>
@@ -128,7 +126,6 @@
         {{wtf.render_field(form3.categories)}}
         {{wtf.render_field(form3.name, id="productname", placeholder="Product Name")}}
         {{wtf.render_field(form3.price, id="price", placeholder="price")}}
-        {{wtf.render_field(form3.quantity, id="qty", placeholder="Quantity")}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

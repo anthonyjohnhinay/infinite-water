@@ -57,6 +57,12 @@ $(document).ready(function(){
     $('#formprice').keyup(function(){
         window.payment = $('#formprice').val();
         window.balance = (payment - window.total);
+        if(0>balance){
+            $('#balance').css('color', 'red')
+        }
+        else{
+            $('#balance').css('color', 'black')
+        }
         $('#balance').text('₱' + balance);
 
     })
@@ -66,19 +72,23 @@ $(document).ready(function(){
         if($('#optioncustomer').val()==""){ var customername = $('#regcustom option:selected').text();}
         else{var customername = $('#optioncustomer').val(); }
 
-        var customeraddress =$('#address').val();
+        const customeraddress = $('#address').val();
         var customercontact = $('#contact_number').val();
         var customermarkers = $('#markers').val();
         var productcatalog = $('#categories option:selected').text();
         var productname = $('#productname option:selected').text();
         var productprice = $('#productname option:selected').val();
+        var deliverystatus = $('#status option:selected').val();
         var producttotal = window.total;
         var userbal = window.balance
         var qty = $('#qty').val()
         //end
        if(window.total == null){
-           $('#erroralert').text('Please input all the details!').show()
+           $('#errorAlert').text('Please input all the details!').show()
        }
+       if(customername == ""){
+        $('#errorAlert').text('Please input customer name').show()
+    }
        else{
         swal({
             title: "Are you sure?",
@@ -97,7 +107,7 @@ $(document).ready(function(){
                          customername : customername,
                          customercontact : customercontact,
                          customeraddress :  customeraddress,
-                         customermarkers : customermarkers,
+                         deliverystatus : deliverystatus,
                          productcatalog : productcatalog,
                          productname : productname,
                          productprice : productprice,
@@ -106,6 +116,17 @@ $(document).ready(function(){
                          qty : qty
                       },
                       success:function(data){
+                          if(data.error){
+                            swal({
+                                title: "Something went wrong.",
+                                text: data.error,
+                                icon: "danger",
+                                button: "Okay",
+                              }).then(function(){
+                                  $('#exampleModal').modal('hide');
+                                  location.reload();
+                              })
+                          }
                         swal({
                             title: "Yay!",
                             text: 'Transaction has been added',

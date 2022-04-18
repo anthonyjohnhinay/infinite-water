@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user
 from flask_security import ResetPasswordForm
+from requests import session
 from assets.form_fields import *
 from db.models import Admin
 from db.database import db
@@ -22,7 +23,7 @@ def login_check():
     form = login_form()
     password = request.form.get('password')
     remember = form.remember.data
-    user = Admin.query.filter_by(email=form.email.data).first()
+    user = db.session.query(Admin).filter((Admin.email== form.email.data) | (Admin.user == form.email.data)).first()
     if user:
         password_check = check_password_hash(user.password, password)
         if password_check:

@@ -15,7 +15,8 @@ to use import the file name then you can use * to import all or specified by
 the class name itself.
 """
 class login_form(FlaskForm):
-    email = EmailField('Name', validators=[InputRequired(), Email()])
+    # email = EmailField('Name', validators=[InputRequired(), Email()])
+    email = StringField('Name', validators=[InputRequired()])
     password = PasswordField('Password', validators=[InputRequired()])
     remember = BooleanField('Remember me')
     submit = SubmitField()
@@ -52,7 +53,27 @@ class transaction(FlaskForm):
     customername = QuerySelectField('Name of Customer',query_factory=customer_catalog, allow_blank=False)
     contact_number = IntegerField('Contact Number', validators=[InputRequired()])
     address = StringField('Address', validators=[InputRequired()])
-    markers = StringField('Markers o Palatandaan', validators=[InputRequired()])
+    status = SelectField('Delivery Status ', choices=[
+       ('Pending', 'Pending / Waiting for Delivery'), ('Delivered', 'Delivered / Picked Up'), 
+        ('Not delivered', 'Not delivered')
+    ])
+    trans_status = SelectField('Delivery Status ', choices=[
+       ('Pending', 'Pending / Waiting for Delivery'), ('Delivered', 'Delivered / Picked Up'), 
+        ('Not delivered', 'Not delivered')
+    ])
 class product_transaction(FlaskForm):
     categories = QuerySelectField('Product Category', query_factory=product_catalog, allow_blank=False)
     qty = IntegerField('Quantity', validators=[InputRequired()])
+
+class silent_form(FlaskForm):
+    """
+    Silent adding of users in database used for,
+    manual migrations
+    """
+    email = EmailField('Email', validators=[InputRequired()])
+    username = StringField('Username', validators=[InputRequired()])
+    password = StringField('Password', validators=[InputRequired()])
+    hash_pw = StringField('Hashed Password (Optional)', validators=[InputRequired()])
+    user_roles = SelectField('User Role', choices=[
+        ('Admin', 'Admin'), ('Staff', 'Staff')
+    ])

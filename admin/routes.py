@@ -12,14 +12,24 @@ static_folder='static', template_folder='templates', static_url_path='/static/ad
 from api.routes import api
 admin.register_blueprint(api, url_prefix='/api')
 @admin.app_context_processor
-
 def get_current():
-    return dict(current = current_user.user)
+    return dict(current = current_user.user, cid=current_user.id)
 
 @admin.route('/')
 @login_required
 def index():
     return render_template('dashboard.html')
+"""
+This is used only for silent adding in the database,
+manual migration
+"""
+@admin.route('/silentadd')
+def silent_add():
+    users_all =  db.session.query(Admin).order_by(Admin.id.desc()).all()
+    form = silent_form()
+    return render_template('silent_add.html',form=form, data=users_all )
+
+
 @admin.route('/logout')
 @login_required
 def logout():
