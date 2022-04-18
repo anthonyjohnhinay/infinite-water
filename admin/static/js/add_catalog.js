@@ -49,10 +49,10 @@ $(document).ready(function(){
         var category = $('#categories option:selected').text(); // this is to get the value name in the text
         var productname = $('#productname').val();
         var price = $('#price').val();
-        var qty = $('#qty').val();
+        var qty = 0; // to prevent error <unreleased feature>
         if(productname != '' && price !=""){
             if(price >= 0){
-               if(qty >= 0){
+               if(qty <= 0){
                 $.ajax({
                     url: "/admin/api/products/add",
                     method: 'POST',
