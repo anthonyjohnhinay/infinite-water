@@ -9,4 +9,12 @@ $(document).ready(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         })
     })
+
+    // search function for user
+    $('#user_search').keyup(function () {
+        var value = $(this).val().toLowerCase();
+        $('#user_table tr').filter(function(){
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        })
+    })
 })

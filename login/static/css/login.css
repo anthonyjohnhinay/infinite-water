@@ -27,6 +27,7 @@ form i {
     display: inline-block;
 
 }
-#loginbutton{
-    text-align: center;
+#hero{
+    width: 60%;
+    height: 60%;
 }

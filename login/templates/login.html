@@ -9,6 +9,7 @@
 
 
 <div class="card-body p-5 text-center">
+    <img id="hero"src="{{url_for('login.static', filename='icon/infinity.png')}}" alt="">
     <h3 class mb-5>Login</h3>
     <!-- This is the flashed message-->
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -31,9 +32,9 @@
             </div>
         <p class="small mb-4 pb-lg-1"><a href="{{url_for('login.recover')}}">Forgot Password?</a></p>
         <!-- Submit button-->
-        <div class="col-md-12 text-center">
-            <button class="btn btn-primary btn-lg btn-block" id="loginbutton" type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
-        </div>
+        
+        <button class="btn btn-primary btn-lg btn-block" id="loginbutton" type="submit">Login</button>
+   
         
         </form>
 </div>
