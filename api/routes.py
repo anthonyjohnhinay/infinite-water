@@ -26,7 +26,8 @@ api.register_blueprint(api_transaction, url_prefix='/transaction')
 from .branch.silent import api_silent
 api.register_blueprint(api_silent, url_prefix='/silent')
 
-
+from .branch.graph import api_graph
+api.register_blueprint(api_graph, url_prefix='/graphs')
 #parent process for verfication
 from db.models import *
 from werkzeug.security import check_password_hash
