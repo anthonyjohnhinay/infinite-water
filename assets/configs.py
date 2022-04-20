@@ -40,4 +40,9 @@ class prodconfig(Config):
     """
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = 'postgresql://zhhvbyzcbrygqp:8ced37f5449d5fcb12eb2651c4a269d84a2ab7a5c1f548977f668a85180b4693@ec2-3-225-213-67.compute-1.amazonaws.com:5432/d7nmvln4ji7uo4'
-    
+class prod2_config(Config):
+    """
+    Second migration for the DB (permanent)
+    """
+    DEBUG = True
+    SQLALCHEMY_DATABASE_URI = 'postgresql://htzpcdciorgdfb:a7687fc6eacb82a26c773c2711a012f7f131c7ddc7f596f0c6534debc72234f2@ec2-34-194-158-176.compute-1.amazonaws.com:5432/d5ufep761otd0f'
