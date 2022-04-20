@@ -5,4 +5,4 @@ static_folder='static', template_folder='templates', static_url_path='/static/fr
 
 @front.route('/')
 def index():
-    return render_template('home.html', title='Infinity Flow')
+    return render_template('home.html', title='Infinite Flow')
