@@ -17,7 +17,7 @@ the project.
 def config_app():
     app = Flask(__name__)
     #change to prodconfig when deploying in live server
-    app.config.from_object('assets.configs.prodconfig')
+    app.config.from_object('assets.configs.prod2_config')
 
 
     # this is to initialize all the resources outside the app factory
