@@ -3,17 +3,33 @@
 {%block title%} Transactions {%endblock%}
 
 {%block body%}
-<div class="container-fluid py-3 h-100">
+  <div class="container-fluid py-3 h-100">
     <div class="row">
         <div class="col-12">
-            <h3>Manage Transactions</h3>
+          <h3>Manage Transactions</h3>
+      </div>
+      <!---->
+      <div class="col-lg-3 col-sm-6">
+        <div class="card-box bg-success">
+            <div class="inner">
+                <h3>{{total_trans}}</h3>
+                <p>Total Transactions</p>
+            </div>
+            <div class="icon">
+              <i class="far fa-user-tie"></i>
+            </div>
+            <!-- <a href="{{url_for('admin.users')}}" class="card-box-footer">View More <i class="fa fa-arrow-circle-right"></i></a> -->
         </div>
-       
+    </div>
+    <!---->
+    </div>
+    <div class="row">
+        
         <div id="addbtn"class="col-lg-3 col-md-6">
             <button class="btn btn-success btn-md"data-toggle="modal" data-target="#exampleModal" id="selectmodal"><i class="fas fa-briefcase"></i> New Transactions</button>
         </div>
         <div class="col-4" id="transac-container"> 
-          <input type="text" class="form-control" id="transacinput" placeholder="search transacation">
+          <input type="text" class="form-control" id="transacinput" placeholder="search transactions">
           
       </div>
         <div id="table"class="col-12">
@@ -245,14 +261,16 @@
       font-size: 60px;
       font-weight: 300;
     }
+
     #balance{
       font-size: 60px;
       font-weight: 300;
     }
     .table-responsive{
-      max-height: 1200px;
+      max-height: 500px;
     }
 </style>
+<link rel="stylesheet" href="{{url_for('admin.static', filename='css/trans-card.css')}}">
 <script src="{{url_for('admin.static', filename='js/transaction.js')}}"></script>
 <script src="{{url_for('admin.static', filename='js/search_func.js')}}"></script>
 <script src="{{url_for('admin.static', filename='js/server_auth.js')}}"></script>

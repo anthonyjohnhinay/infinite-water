@@ -12,5 +12,8 @@ def index():
     return 'Welcome to Graphs API'
 @api_graph.route('/today')
 def get_today():
-
     return '200'
+
+def total_count():
+    total = len(transaction_data.query.all())
+    return total
