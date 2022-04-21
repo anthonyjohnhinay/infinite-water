@@ -9,8 +9,6 @@ $(document).ready(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         })
     })
-<<<<<<< HEAD
-=======
 
     // search function for user
     $('#user_search').keyup(function () {
@@ -19,5 +17,4 @@ $(document).ready(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         })
     })
->>>>>>> b5644c32c44cb041c77e04bab75d4cac8e81a62e
 })

@@ -12,5 +12,14 @@ def index():
     return 'Welcome to Graphs API'
 @api_graph.route('/today')
 def get_today():
-
     return '200'
+
+def total_count():
+    total = len(transaction_data.query.all())
+    return total
+def total_pendingdel():
+    pending = len(transaction_data.query.filter_by(productstatus='Pending').all())
+    return pending
+def total_notdel():
+    not_deliver = len(transaction_data.query.filter_by(productstatus='Not delivered').all())
+    return not_deliver

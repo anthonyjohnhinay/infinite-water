@@ -112,6 +112,13 @@ def manage_transaction():
 
     data_transaction = transaction_data.query.all()
 
+    from api.branch.graph import total_count, total_pendingdel, total_notdel
+    total_trans = total_count()
+    total_pending = total_pendingdel()
+    total_not = total_notdel()
     return render_template(
         'transaction_manage.html', 
-        form1=form1, form2=form2, transaction=data_transaction)
+        form1=form1, form2=form2, transaction=data_transaction,
+        total_trans = total_trans, total_pending=total_pending,
+        total_not =total_not
+        )
