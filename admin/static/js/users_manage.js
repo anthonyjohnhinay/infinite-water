@@ -11,11 +11,13 @@ $(document).ready(function(){
       })
       .then((willreset) =>{
         if(willreset){
+          $('#loader').modal('show')
           $.ajax({
             url: '/admin/api/users/users/sudo',
             method: 'POST',
             data: {id : id},
             success: (function(data){
+              $('#loader').modal('hide')
               if(data.identifier == 'success'){
                 $('#useremail').text(data.email);
                 $('#newpw').text(data.pw);

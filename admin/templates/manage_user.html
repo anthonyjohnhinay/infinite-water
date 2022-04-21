@@ -1,4 +1,4 @@
-{%extends "root_template/navbar.html"%}
+{%extends "root_template/modals.html"%}
 {% import 'bootstrap4/form.html' as wtf%}
 {%block body%}
 <div class="vh-100">
@@ -65,7 +65,7 @@
       </div>
       <div class="modal-body">
         <label for="email"> User Email </label>
-        <h3 id="useremail" style="display: none;"></h3>
+        <h3 id="useremail"></h3>
         <label for="password">New Password</label>
         <h3 id="newpw"></h3>
       </div>
@@ -77,19 +77,21 @@
   </div>
 </div>
 
+
+
 <script>
   $(document).ready(function(){
     $('#emailhide').click(function(){
       var btn_email = $('#emailhide').text();
-      if(btn_email==" Show Email"){
-        $('#iemail').attr('class', 'far fa-eye-slash')
+      // this will get the class in order to hide and show class attr of email
+      var icon = $('#iemail').attr('class');
+      if(icon=="far fa-eye"){
         $('.hide').show()
-        $('#emailhide').text(' Hide Email')
+        $('#emailhide').html('<i id="iemail"class="far fa-eye-slash"></i> Hide Email')
       }
-      if(btn_email==" Hide Email"){
-        $('#iemail').attr('class', 'far fa-eye')
+      if(icon=="far fa-eye-slash"){
         $('.hide').hide()
-        $('#emailhide').text(' Show Email')
+        $('#emailhide').html('<i id="iemail"class="far fa-eye"></i>Show Email')
       }
     })
   })
