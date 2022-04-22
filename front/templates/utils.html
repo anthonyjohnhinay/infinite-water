@@ -1,0 +1,60 @@
+{%extends "base.html"%}
+{%block navbar%}
+<link rel="stylesheet" href="{{url_for('front.static', filename='css/list.css')}}">
+<nav id="navbar"class="navbar navbar-light navbar-expand bg-light navigation-clean">
+    <div class="container-fluid">
+        <!-- <ion-icon size="large"name="water-outline"></ion-icon>  -->
+        <a class="navbar-brand" href="#"><img src="{{url_for('front.static', filename='image/infinity.png')}}" alt="" style="width: 47%;height: 47%;"></a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"></button>
+        <div class="collapse navbar-collapse" id="navcol-1">
+            <!-- <a class="btn btn-primary ml-auto" role="button" href="#">Sign In</a>
+            <a class="btn btn-primary ml-auto" role="button" href="#">Sign In</a> -->
+            <div id="nav"class="navbar-nav ml-auto">
+                <a class="scroll nav-item nav-link" href="#students">Students</a>
+                <a class="scroll nav-item nav-link" href="#business">Business</a>
+                <a class="scroll nav-item nav-link" href="#researchers">Researchers</a>
+            </div>
+        </div>
+    </div>
+</nav>
+{%endblock%}
+{%block header%}
+<link rel="stylesheet" href="{{url_for('front.static', filename='css/button.css')}}">
+<header class="masthead text-white text-center" style="background:url('static/front/image/bg-masthead.jpg')no-repeat center center;background-size:cover;">
+    <div class="overlay"></div>
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <h1 class="mb-5"><strong>AN ONLINE INVENTORY MANAGEMENT SYSTEM FOR INFINITE FLOW WATER REFILLING STATION</strong></h1>
+            </div>
+            <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+                <form>
+                    <div class="form-row">
+                        <div class="col-6 offset-3"><a id="log_button"href="{{url_for('login.index')}}" class="btn btn-primary  btn-block btn-lg">Log In</a></div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</header>
+{%endblock%}
+{%block body%}
+{%endblock%}
+{%block footer%}
+<footer class="footer bg-dark">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 my-auto h-100 text-center text-lg-left">
+                <p class="text-muted small mb-4 mb-lg-0">AN ONLINE INVENTORY MANAGEMENT SYSTEM FOR INFINITE FLOW WATER REFILLING STATION</p>
+                
+            </div>
+            <div class="col-lg-6 my-auto h-100 text-center text-lg-right">
+                <ul class="list-inline mb-0">
+                    <li class="list-inline-item"><a href="#"></a></li>
+                    <li class="list-inline-item"><a href="#"></a></li>
+                    <li class="list-inline-item"><a href="#"></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+{%endblock%}

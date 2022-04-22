@@ -1,0 +1,306 @@
+{%extends "root_template/modals.html"%}
+{% import 'bootstrap4/form.html' as wtf%}
+{%block title%} Transactions {%endblock%}
+
+{%block body%}
+  <div class="container-fluid py-3 h-100">
+    <div class="row">
+        <div class="col-12">
+          <h3>Manage Transactions</h3>
+      </div>
+      <!---->
+      <div class="col-lg-3 col-sm-6">
+        <div class="card-box bg-success">
+            <div class="inner">
+                <h3>{{total_trans}}</h3>
+                <p>Total Transactions</p>
+            </div>
+            <div class="icon">
+              <i class="far fa-user-tie"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-3 col-sm-6">
+      <div class="card-box bg-warning">
+          <div class="inner">
+              <h3>{{total_pending}}</h3>
+              <p>Pending Deliveries</p>
+          </div>
+          <div class="icon">
+            <i class="far fa-exclamation-circle"></i>
+          </div>
+      </div>
+  </div>
+
+  <div class="col-lg-3 col-sm-6">
+    <div class="card-box bg-danger">
+        <div class="inner">
+            <h3>{{total_not}}</h3>
+            <p>Not Delivered</p>
+        </div>
+        <div class="icon">
+          <i class="fas fa-times-circle"></i>
+        </div>
+    </div>
+</div>
+
+    
+    <!---->
+    </div>
+    <div class="row">
+        
+        <div id="addbtn"class="col-lg-3 col-md-6">
+            <button class="btn btn-success btn-md"data-toggle="modal" data-target="#exampleModal" id="selectmodal"><i class="fas fa-briefcase"></i> New Transactions</button>
+        </div>
+        <div class="col-4" id="transac-container"> 
+          <input type="text" class="form-control" id="transacinput" placeholder="search transactions">
+          
+      </div>
+        <div id="table"class="col-12">
+            <div class="table-responsive">
+                <table class="table  table-bordered">
+                  <thead>
+                    <tr>
+                      <th scope="col" class="col-1">Transaction ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Contact</th>
+                      <th scope="col">Order & Qty</th>
+                      <th>Total Price</th>
+                      <th scope="col">Status</th>
+                      <th scope="col" class="col-2"></th>
+                    </tr>
+                  </thead>
+                  {%for data in transaction%}
+                  <tbody id="transactable">
+                    <tr>
+                      
+                        <td scope="row">{{data.transactionid}}</td>
+                        <td>
+                          {{data.customername}}
+                          <br>
+                          {%if data.productbal > 0%}
+                          <span class="badge badge-pill badge-success"><i class="fas fa-check-circle"></i> paid - {{data.payment_stat}} - ₱{{data.productbal}}</span>
+                          {%endif%}
+                          {%if data.productbal == 0%}
+                          <span class="badge badge-pill badge-success"><i class="fas fa-check-circle"></i> paid - {{data.payment_stat}}</span>
+                          {%endif%}
+                          {%if data.productbal < 0%}
+                          <span class="badge badge-pill badge-warning"><i class="fas fa-check-circle"></i> Unpaid balance - {{data.payment_stat}} - ₱{{data.productbal}}</span>
+                          {%endif%}
+                          
+                        </td>
+                        <td>{{data.customeraddress}}</td>
+                        <td>{{data.customercontact}}</td>
+                        <td>{{data.productname}} - {{data.qty}}</td>
+                        <td>{{data.total}}</td>
+                        <td>
+                          {%if data.productstatus == 'Pending'%}
+                            <a href="javascript:void(0)" class="btn btn-warning status-btn"><i class="fas fa-hourglass-half"></i> Pending</a>
+                          {%endif%}
+                          {%if data.productstatus == 'Delivered'%}
+                            <a href="javascript:void(0)" class="btn btn-success status-btn"><i class="fas fa-check-circle"></i> Delivered</a>
+                          {%endif%}
+                          {%if data.productstatus == 'Not delivered'%}
+                            <a href="javascript:void(0)" class="btn btn-danger status-btn"><i class="fas fa-times-circle"></i> Not Delivered</a>
+                          {%endif%}
+                         
+                        </td>
+                        <td>
+                          <div class="row">
+                            <input type="hidden" value="{{data.id}}"class="find_id">
+                            <div class="col-2">
+                              <a href="#" class=" editactivator btn btn-outline-warning">Edit</a>
+                            </div>
+                            <div class="col-2" style="margin-left: 20px;">
+                              
+                              <a href="#" class="modalactivator btn btn-outline-danger">Delete</a>
+                            </div>
+                          </div>
+                           
+                        </td>
+                    </tr>
+                    
+                  </tbody>
+                  {%endfor%}
+                </table>
+              </div>
+              <!-- End of the table-->
+        </div>
+    </div>
+    <!-- Big Modal-->
+
+</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"  data-backdrop="static"aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">New Transaction</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close reset">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="errorAlert" class="alert alert-danger" role="alert" style="display:none;"></div>
+          <!-- Dismissable alert hidden for edit -->
+          <input type="hidden" name="" id="clienttransid">
+          <div id="zoomwarn"class="alert alert-warning alert-dismissible fade show" role="alert" style="display: none;">
+            <i class="fal fa-info-circle"></i> We suggest you to lower the zoom by <strong> 80% or less</strong> for better viewing.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <h4><i class="fal fa-user-chart"></i> Customer Identity</h4>
+         
+          <!-- Modal Content-->
+          <div class="form-row">
+            <!--Forms-->
+            <div id="customertypediv" class="form-group col-md-4">
+              {{wtf.render_field(form1.customertype)}}
+            </div>
+            <div id="guestcustom"class="form-group col-md-4" style="display: none;">
+              {{wtf.render_field(form1.optioncustomer)}}
+            </div>
+            <div id="regcustom" class="form-group col-md-4" style="display: block;">
+              {{wtf.render_field(form1.customername,class='selectpicker',**{'data-live-search': 'true'})}}
+            </div>
+            <div id="usercontactnum"class="form-group col-md-4">
+              {{wtf.render_field(form1.contact_number)}}
+            </div>
+            <div class="form-group col-md-12">
+              {{wtf.render_field(form1.address)}}
+            </div>
+            <!-- End Forms-->
+          </div>
+          <hr>
+          <h4><i class="fal fa-tags"></i> Products</h4>
+          <div class="form-row">
+            <!--Products-->
+            <div class="form-group col-md-4">
+              {{wtf.render_field(form2.categories,class='selectpicker',**{'data-live-search': 'true'})}}
+            </div>
+            <div  id="product_drop" class="form-group col-md-4"> 
+
+            </div>
+            <div class="form-group col-md-4">
+              {{wtf.render_field(form2.qty, disabled=True)}}
+            </div>
+            <!--End-->
+           
+          </div>
+          <hr>
+          
+          <div class="form-row">
+            <div class="col-md-4">
+              <h4><i class="fal fa-hand-holding-usd"></i> Total Price: </h4>
+              <h2 id="total_price"></h2>
+            </div>
+            <div id="pricepayment"class="form-group col-md-4">
+              <h4><i class="fal fa-tags"></i> Payment:</h4>
+              <input id="formprice" type="text" class="form-control">
+            </div>
+            <div id="pricebal"class="form-group col-md-4">
+              <h4><i class="fal fa-coins"></i> Change:</h4>
+              <h6 class="" id="balance"></h6>
+            </div>
+          </div>
+          <hr>
+          <h4><i class="fal fa-truck"></i> Delivery Status</h4>
+          {{wtf.render_field(form1.status)}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary reset" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="submitdata">Save</button>
+          <!--This button will appear when editing -->
+          <button type="button" class="btn btn-primary" id="editsubmit" style="display: none;"><i class="fal fa-edit"></i> Save Edit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--Modal2-->
+  <div id="deletemodal"class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title"><i class="fal fa-shield-check"></i> Authorization</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <label for="email">Email Address</label>
+          <input type="text" class="form-control" id="emailinput" placeholder="Registered Email or Username">
+          <label for="email">Password</label>
+          <input type="password" name="" id="passwordinput" class="form-control" placeholder="User Password">
+        </div>
+        <div class="modal-footer">
+          <button id="deletebtn"type="button" class="btn btn-danger"><i class="fas fa-trash"></i>Delete</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+    <!--Modal2-->
+    <div id="editmodal"class="modal fade" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title"><i class="fal fa-pencil"></i> Edit Transaction Detail</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4>Edit Delivery Status</h4>
+            {{wtf.render_field(form1.trans_status)}}
+            <hr>
+            <h4>Edit all transaction details</h4>
+            <button class="btn btn-warning btn-block" id="editall"><i class="fas fa-shield-check"></i> Edit All Detais</button>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary reset" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary" id="submitedit"><i class="fas fa-save"></i> Save</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+<style>
+  .status-btn{
+    border-radius: 20px;
+  }
+
+    #addbtn{
+        margin-top: 15px;
+        margin-bottom: 10px;
+    }
+    #transac-container{
+      margin-top: 15px;
+      margin-bottom: 10px;
+     
+    }
+    #formprice{
+      font-size: 40px;
+    }
+    #total_price{
+      font-size: 60px;
+      font-weight: 300;
+    }
+
+    #balance{
+      font-size: 60px;
+      font-weight: 300;
+    }
+    .table-responsive{
+      max-height: 500px;
+    }
+</style>
+<link rel="stylesheet" href="{{url_for('admin.static', filename='css/trans-card.css')}}">
+<script src="{{url_for('admin.static', filename='js/transaction.js')}}"></script>
+<script src="{{url_for('admin.static', filename='js/search_func.js')}}"></script>
+<script src="{{url_for('admin.static', filename='js/server_auth.js')}}"></script>
+<script src="{{url_for('admin.static', filename='js/transaction/editcomplete.js')}}"></script>
+{%endblock%}

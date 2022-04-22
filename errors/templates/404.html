@@ -1,0 +1,24 @@
+{%extends "error_base.html"%}
+{%block body%}
+<link rel="stylesheet" href="{{url_for('error.static', filename='css/404.css')}}">
+<div class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="error-template">
+                    <h1>Oops!</h1>
+                    <h2>Nothing to found here</h2>
+                    <div class="error-details">
+                    We are cooking something else for you..
+                        
+                    </div>
+                    <div class="error-actions">
+                        <a href="/admin/" class="btn btn-primary btn-lg"><i class="far fa-home-lg-alt"></i> Go back</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

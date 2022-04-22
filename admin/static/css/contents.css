@@ -1,0 +1,26 @@
+label[for="catalogname"]
+{
+    display: none;
+}
+.wrapper{
+    width:250px;
+    padding:10px;
+    height: 200px;
+    }
+.col{
+    margin-bottom: 3px;
+    margin-top: 3px;
+}
+.catalog{
+    margin-bottom: 3px;
+}
+
+table, td, tr{
+    border-collapse: collapse;
+}
+.table-responsive{
+    max-height: 300px;
+}
+#catalog_table{
+    max-height: 300px;
+}

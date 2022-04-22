@@ -1,7 +1,7 @@
 {%extends "login_base.html"%}
 
 {% import 'bootstrap4/form.html' as wtf%}
-
+{%block title%}Login{%endblock%}
 {%block body%}
 <!--https://mdbootstrap.com/docs/standard/extended/login/-->
 
@@ -9,6 +9,7 @@
 
 
 <div class="card-body p-5 text-center">
+    <img id="hero"src="{{url_for('login.static', filename='icon/infinity.png')}}" alt="">
     <h3 class mb-5>Login</h3>
     <!-- This is the flashed message-->
     {% with messages = get_flashed_messages(with_categories=true) %}
@@ -18,20 +19,23 @@
     {% endfor %}
     {% endif %}
     {% endwith %}
-        <form action="/" method="post">
-            {{wtf.render_field(form.email, placeholder="Email Address")}}
+        <form action="{{url_for('login.index')}}" method="post">
+            {{wtf.render_field(form.email, placeholder="Email Address or Username")}}
             <!-- Password field-->
             <div class="input-group mb-3">
                 <!--https://getbootstrap.com/docs/4.0/components/input-group/-->
-                <input type="password" id="password" placeholder="Password" class="form-control" name="password" aria-describedby="basic-addon2"required>
-                
+                <input type="password" id="password" placeholder="Password" class="form-control" name="password" required>
+            
             </div>
             <div class="form-check d-flex justify-content-start mb-4">
                 {{wtf.render_field(form.remember)}}
             </div>
-        <p class="small mb-4 pb-lg-1"><a href="/recover">Forgot Password?</a></p>
+        <p class="small mb-4 pb-lg-1"><a href="{{url_for('login.recover')}}">Forgot Password?</a></p>
         <!-- Submit button-->
-        <button class="btn btn-primary btn-lg btn-block" type="submit"><i class="fas fa-sign-in-alt"></i> Login</button>
+        
+        <button class="btn btn-primary btn-lg btn-block" id="loginbutton" type="submit">Login</button>
+   
+        
         </form>
 </div>
 {%endblock%}

@@ -1,0 +1,24 @@
+{%extends "root_template/navbar.html"%}
+{% import 'bootstrap4/form.html' as wtf%}
+{%block body%}
+<div class="vh-100">
+  <div class="container py-3 px-3">
+    <h3> Editing {{name.user}}</h3>
+      <!-- Flashed message in the field-->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+      {% for category, message in messages %}
+        <div class="alert alert-{{ category }}"> {{ message|capitalize }} </div>
+      {% endfor %}
+    {% endif %}
+    {%endwith%}
+    <br>
+    <form action="{{url_for('admin.api.api_users.edit_users_post', id=name.id)}}" method="post">
+        {{wtf.render_field(form.email, value=name.email, placeholder="Username")}}
+        {{wtf.render_field(form.username, value=name.user, placeholder="Username")}}
+        <button class="btn btn-success"><i class="fas fa-pen-square"></i> Edit User</button>
+    </form>
+  </div>
+</div>
+
+{%endblock%}

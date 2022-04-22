@@ -4,10 +4,10 @@
     background: #6a11cb;
   
     /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, rgba(106, 17, 203, 1), rgb(95, 2, 172));
+    background: -webkit-linear-gradient(to right, #36D1DC, #5B86E5);
   
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, rgba(106, 17, 203, 1), rgba(95, 2, 172, 1))
+    background: linear-gradient(to right, #36D1DC, #5B86E5)
   }
 
 /* This is to hide the built-in labels from wtf forms */
@@ -22,4 +22,12 @@ label[for="password"]
 form i {
     margin-left: -40px;
     cursor: pointer;
+}
+.btn btn-primary btn-lg btn-block{
+    display: inline-block;
+
+}
+#hero{
+    width: 60%;
+    height: 60%;
 }

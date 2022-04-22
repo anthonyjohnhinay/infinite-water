@@ -1,9 +1,14 @@
 from flask import Blueprint, render_template, redirect, url_for, flash, request
 from flask_login import login_user
-from form_fields import email_check, login_form
+from flask_security import ResetPasswordForm
+from requests import session
+from assets.form_fields import *
 from db.models import Admin
-from werkzeug.security import check_password_hash
-from config import config_email
+from db.database import db
+from werkzeug.security import check_password_hash, generate_password_hash
+from assets.configs import config_email
+from api.helpers import user_reset
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
 login = Blueprint('login', __name__,
 static_folder='static', template_folder='templates', static_url_path='/static/login')
@@ -18,7 +23,7 @@ def login_check():
     form = login_form()
     password = request.form.get('password')
     remember = form.remember.data
-    user = Admin.query.filter_by(email=form.email.data).first()
+    user = db.session.query(Admin).filter((Admin.email== form.email.data) | (Admin.user == form.email.data)).first()
     if user:
         password_check = check_password_hash(user.password, password)
         if password_check:
@@ -45,10 +50,12 @@ def recover_post():
                     "warning"
                 )
             else:
+                user_reset(user)
                 flash(
                     "the reset link will be sent on your email",
                     "success"
                 )
+                return redirect(url_for('login.index'))
         else:
             flash(
                 "The email doesn't exist, please contact the app developers",
@@ -56,4 +63,34 @@ def recover_post():
             )
             return redirect(url_for('login.recover'))
         return render_template('forgot_pw.html', form=form)
-        
+
+@login.route('/recover/<token>', methods=['GET', 'POST'])
+def reset_token(token):
+    s = Serializer('secret')
+    try:
+        user_id = s.loads(token)['user_id']
+    except:
+        flash('The given link was expired please generate a new one.', 'warning')
+        return redirect(url_for('login.index'))
+    user = Admin.query.get(user_id)
+    print('reset token success')
+
+    form = reset_form()
+  
+    
+    return render_template('reset.html', form=form, token=token)
+
+@login.route('/recovery/<token>', methods=['POST', 'GET'])
+def get_pw(token):
+    s = Serializer('secret')
+    try:
+        user_id = s.loads(token)['user_id']
+    except:
+        flash('The given link was expired please generate a new one.', 'warning')
+        return redirect(url_for('login.index'))
+    form = reset_form()
+    hash_pw = generate_password_hash(form.password.data, 'sha256')
+    update = Admin.query.filter_by(id=user_id).update(dict(password=hash_pw))
+    db.session.commit()
+    flash('Succefully updated the password!', 'success')
+    return redirect(url_for('login.index'))

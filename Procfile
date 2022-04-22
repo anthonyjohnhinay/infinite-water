@@ -1,0 +1,1 @@
+web: gunicorn "wsgi:config_app()" -w 4
