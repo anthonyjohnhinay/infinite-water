@@ -62,10 +62,7 @@ def add_product():
    productname = request.form['productname'].title()
    price = request.form['price']
    qty = request.form['qty']
-   if qty == "":
-       qty = None
-   else:
-       qty = int(qty)
+   
    print(selectprod, productname, price, qty)
    catalog = Catalog.query.filter_by(name=selectprod).first()
    print(catalog)
@@ -84,12 +81,10 @@ def edit_prod(id):
     category = request.form['category']
     productname = request.form['productname']
     price = request.form['price']
-    qty = request.form['qty']
     catalog = Catalog.query.filter_by(name=category).first()
     print(catalog.id)
     update = Product.query.filter_by(id=id).update(dict(
-        name = productname, price = price,
-        quantity = qty, catalog_id = catalog.id
+        name = productname, price = price, catalog_id = catalog.id
     ))
     db.session.commit()
     return '200'
