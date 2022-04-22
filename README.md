@@ -1,4 +1,5 @@
 # infinite-water 
+[![forthebadge](https://forthebadge.com/images/badges/made-with-python.svg)](https://forthebadge.com)
 
 ### Tools needed: 
 * VSCODE or any IDE such as (sublime, notepad++ or Vim)
